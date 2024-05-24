@@ -1,20 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class IdleState<T> : IState<T>
+public class IdleState : IState
 {
-    public void OnEnter(T t)
+    public void OnEnter(Character character)
     {
-        throw new System.NotImplementedException();
     }
 
-    public void OnExecute(T t)
+    public void OnExecute(Character character)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Day la IdleState");
+        
+
     }
 
-    public void OnExit(T t)
+    public void OnExit(Character character)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Character
@@ -31,24 +30,26 @@ public class Player : Character
     float timee;
 
 
-    [SerializeField] private Collider[] enemyColliderCatchs = new Collider[1];
-   
+    [SerializeField] private Collider[] enemyColliderCatchs;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rotationDirection = Vector3.back;
         isMoving = false;
+
+
+        //ChangeState(new IdleState(), this);
     }
 
     // Update is called once per frame
     void Update()
     {
+        ///thuc thi state----------
+        StateExecute(this);
+
         Move();
-        if (currentState != null)
-        {
-            currentState.OnExecute(this);
-        }
 
         GetTargetOtherCharacter();
 
@@ -64,11 +65,26 @@ public class Player : Character
             timee = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            Debug.Log(bulletPointDir.position);
+            ChangeState(new IdleState(), this);
         }
 
+        if (isMoving == false && enemyColliderCatchs[0] == null)
+        {
+            ChangeState(new IdleState(), this);
+        }
+
+        if (isMoving == false && enemyColliderCatchs[0] != null)
+        {
+            ChangeState(new AttackState(), this);
+        }
+
+        if (isMoving == true)
+        {
+            ChangeState(new MoveState(), this);
+        }
     }
 
     protected override void OnInit()
@@ -99,6 +115,7 @@ public class Player : Character
             }
             if (touch.phase == TouchPhase.Moved)
             {
+                isMoving = true;
                 currentTouch = touch.position;
                 moveDirection = (currentTouch - startTouch).normalized;
                 moveDirection.z = moveDirection.y;
@@ -108,7 +125,7 @@ public class Player : Character
             if (touch.phase == TouchPhase.Ended)
             {
                 moveDirection = Vector3.zero;
-
+                isMoving = false;
             }
         }
         return moveDirection;
@@ -120,21 +137,7 @@ public class Player : Character
         return playerTransform.rotation = Quaternion.LookRotation(rotation);
     }
 
-    public void ChangeState(IState<Character> newState)
-    {
-        if (currentState != null)
-        {
-            currentState.OnExit(this);
-        }
 
-        currentState = newState;
-
-        if (currentState != null)
-        {
-            currentState.OnEnter(this);
-        }
-
-    }
 
     // ban ra vien dan theo huong truoc mat character
     public override void Attack()
@@ -161,15 +164,24 @@ public class Player : Character
 
         if (numberHitEnemyCatch == 0)
         {
-            Debug.Log("khong co ke dich nao");
+            //Debug.Log("khong co ke dich nao");
             enemyColliderCatchs = new Collider[1];
         }
         else
         {
-            Debug.Log("so luong ke dich" + numberHitEnemyCatch);
+            //Debug.Log("so luong ke dich" + numberHitEnemyCatch);
             //GetRotation((enemyColliderCatchs[0].transform.position - this.transform.position).normalized);
 
         }
     }
 
+
+
+
+
+    public override void TestMethod()
+    {
+        //base.TestMethod();
+        Debug.Log("day la Player");
+    }
 }

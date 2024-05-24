@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public IState<Character> currentState;
+
+    [SerializeField] protected IState currentState;
 
 
     public float rangeAttack;
@@ -19,7 +20,7 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     protected virtual void OnInit()/////////////////
     {
@@ -55,5 +56,36 @@ public class Character : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(this.transform.position, rangeAttack);
+    }
+
+    //ChangeState-------------------------------
+    public void ChangeState(IState newState, Character character)
+    {
+        if (currentState != null)
+        {
+            currentState.OnExit(character);
+        }
+
+        currentState = newState;
+
+        if (currentState != null)
+        {
+            currentState.OnEnter(character);
+        }
+
+    }
+
+    public void StateExecute(Character character)
+    {
+        //State Execute----------
+        if (currentState != null)
+        {
+            currentState.OnExecute(character);
+        }
+    }
+
+    public virtual void TestMethod()
+    {
+        Debug.Log("day la Character---");
     }
 }
