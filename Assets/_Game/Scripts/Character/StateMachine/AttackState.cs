@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class AttackState : IState
 {
-    public void OnEnter(Character character)
+    public void OnEnter(Enemy enemy)
     {
-        
+
     }
 
-    public void OnExecute(Character character)
+    public void OnExecute(Enemy enemy)
     {
         Debug.Log("Day la AttackState");
     }
 
-    public void OnExit(Character character)
+    public void OnExit(Enemy enemy)
     {
-        
+
     }
 }

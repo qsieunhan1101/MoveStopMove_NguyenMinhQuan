@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class BulletBase : MonoBehaviour
 {
-    public Vector3 direction;
+
     public Rigidbody rb;
-    [SerializeField] private float speed = 5f;
+
+    [SerializeField] private float time;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,6 @@ public class BulletBase : MonoBehaviour
     }
     public void OnDespawm()
     {
-        Destroy(this.gameObject,3f);
+        Destroy(this.gameObject,time);
     }
 }

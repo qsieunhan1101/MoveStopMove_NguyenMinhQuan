@@ -9,28 +9,17 @@ public class Player : Character
     private Vector3 rotationDirection;
 
 
-    [SerializeField] private Transform playerTransform;
 
     [SerializeField] private float speed;
 
 
 
-    [SerializeField] private GameObject bulletPrefab;
 
-    private bool isMoving;
-
-
-    [SerializeField] private Transform bulletPoint;
-    [SerializeField] private Transform bulletPointDir;
-
-    float angle;
-
-    Vector3 dirBullet;
-
-    float timee;
+    [SerializeField] private bool isMoving;
 
 
-    [SerializeField] private Collider[] enemyColliderCatchs;
+
+
 
 
     // Start is called before the first frame update
@@ -39,6 +28,7 @@ public class Player : Character
         rotationDirection = Vector3.back;
         isMoving = false;
 
+        OnInit();
 
         //ChangeState(new IdleState(), this);
     }
@@ -46,45 +36,30 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
-        ///thuc thi state----------
-        StateExecute(this);
 
         Move();
 
+        //attack
+        if (isMoving == false && IsHaveTargetAttack())
+        {
+            time += Time.deltaTime;
+            if (time >= frameRate)
+            {
+                Vector3 dir = (targetAttack.transform.position - this.transform.position).normalized;
+                GetRotation(dir);
+                time -= frameRate;
+                Attack();
+            }
+        }
+        if (isMoving == true && !IsHaveTargetAttack())
+        {
+            time = frameRate;
+        }
+
+
+
+
         GetTargetOtherCharacter();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Attack();
-        }
-
-        timee += Time.deltaTime;
-        if (timee >= 2f)
-        {
-            Attack();
-            timee = 0;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            ChangeState(new IdleState(), this);
-        }
-
-        if (isMoving == false && enemyColliderCatchs[0] == null)
-        {
-            ChangeState(new IdleState(), this);
-        }
-
-        if (isMoving == false && enemyColliderCatchs[0] != null)
-        {
-            ChangeState(new AttackState(), this);
-        }
-
-        if (isMoving == true)
-        {
-            ChangeState(new MoveState(), this);
-        }
     }
 
     protected override void OnInit()
@@ -96,14 +71,16 @@ public class Player : Character
         base.OnDespawn();
     }
 
-    protected override void Move()
+    private void Move()
     {
-        base.Move();
-        GetDirection();
-        GetRotation(rotationDirection);
+        GetTouchDirection();
+        if (isMoving == true)
+        {
+            GetRotation(rotationDirection);
+        }
         _rb.velocity = new Vector3(moveDirection.x * speed, _rb.velocity.y, moveDirection.z * speed);
     }
-    private Vector3 GetDirection()
+    private void GetTouchDirection()
     {
         if (Input.touchCount > 0)
         {
@@ -126,62 +103,48 @@ public class Player : Character
             {
                 moveDirection = Vector3.zero;
                 isMoving = false;
+
             }
         }
-        return moveDirection;
 
     }
 
-    private Quaternion GetRotation(Vector3 rotation)
-    {
-        return playerTransform.rotation = Quaternion.LookRotation(rotation);
-    }
+
 
 
 
     // ban ra vien dan theo huong truoc mat character
     public override void Attack()
     {
-        //ChangeAnim();
-        GameObject b = Instantiate(bulletPrefab);
-        b.transform.position = bulletPoint.position;
-        Vector3 dir = (bulletPointDir.position - this.transform.position).normalized;
-        b.GetComponent<BulletBase>().rb.AddForce(dir * 500);
-        int sign = 1;
-        if (bulletPointDir.position.x < this.transform.position.x)
-        {
-            sign = -1;
-        }
-        angle = Vector3.Angle(bulletPointDir.forward, Vector3.forward) * sign;
-        b.transform.rotation = Quaternion.Euler(0, angle, 0);
+        base.Attack();
 
     }
     protected override void GetTargetOtherCharacter()
     {
         base.GetTargetOtherCharacter();
-
-        int numberHitEnemyCatch = Physics.OverlapSphereNonAlloc(this.transform.position, rangeAttack, enemyColliderCatchs, characterLayerMask);
-
-        if (numberHitEnemyCatch == 0)
-        {
-            //Debug.Log("khong co ke dich nao");
-            enemyColliderCatchs = new Collider[1];
-        }
-        else
-        {
-            //Debug.Log("so luong ke dich" + numberHitEnemyCatch);
-            //GetRotation((enemyColliderCatchs[0].transform.position - this.transform.position).normalized);
-
-        }
+        ActiveEnemyTargetSprite();
     }
 
-
-
-
-
-    public override void TestMethod()
+    private void ActiveEnemyTargetSprite()
     {
-        //base.TestMethod();
-        Debug.Log("day la Player");
+
+        if (IsHaveTargetAttack() == true)
+        {
+
+            SpriteRenderer targetSprite = targetAttack.GetComponent<Enemy>().spriteRenderer;
+
+            if (Vector3.Distance(this.transform.position, targetAttack.transform.position) <= rangeAttack)
+            {
+                targetSprite.enabled = true;
+            }
+            else
+            {
+                targetSprite.enabled = false;
+            }
+        }
     }
+
+
+
+
 }
