@@ -206,9 +206,15 @@ MonoBehaviour:
   enemyColliders: []
   forceAttack: 300
   bodyTransform: {fileID: 119471527859165700}
+  frameRate: 1
+  time: 1
+  anim: {fileID: 8008087852271613822}
+  currentAnimName: 
+  bulletBasePrefab: {fileID: 1562520743842706727, guid: aa3749c345637394b8df669e7ba5fb51, type: 3}
   _rb: {fileID: 1245954534040813056}
   speed: 5
   isMoving: 0
+  lastTargetAttack: {fileID: 0}
 --- !u!136 &5814647889694937372
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -274,7 +280,7 @@ PrefabInstance:
     - target: {fileID: -6057140222963153312, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: e6b4b125c22a5504ba5cb67707d22fac, type: 2}
+      objectReference: {fileID: 9100000, guid: 956b2864ceb4fe747afd1817056e0b5f, type: 2}
     - target: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -337,5 +343,10 @@ PrefabInstance:
 --- !u!4 &119471527859165700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_PrefabInstance: {fileID: 4959244350791364894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8008087852271613822 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
   m_PrefabInstance: {fileID: 4959244350791364894}
   m_PrefabAsset: {fileID: 0}

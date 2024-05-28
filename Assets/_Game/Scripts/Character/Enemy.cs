@@ -37,7 +37,7 @@ public class Enemy : Character
                 Vector3 dir = (targetAttack.transform.position - this.transform.position).normalized;
                 GetRotation(dir);
 
-                Attack();
+                SpawnWeapon();
             }
 
         }
@@ -58,13 +58,13 @@ public class Enemy : Character
     protected override void OnInit()
     {
         base.OnInit();
-
+        ChangeState(new IdleState());
     }
 
 
-    public override void Attack()
+    public override void SpawnWeapon()
     {
-        base.Attack();
+        base.SpawnWeapon();
     }
 
     public void Move(Vector3 target)
@@ -102,5 +102,9 @@ public class Enemy : Character
         return navHit.position;
     }
 
+    public void EnemyGetRotation(Vector3 dir)
+    {
+        base.GetRotation(dir);
+    }
 
 }

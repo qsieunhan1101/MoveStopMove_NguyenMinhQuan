@@ -18,6 +18,7 @@ public class Player : Character
     [SerializeField] private bool isMoving;
 
 
+    [SerializeField] private Transform lastTargetAttack;
 
 
 
@@ -57,9 +58,30 @@ public class Player : Character
         }
 
 
-
-
         GetTargetOtherCharacter();
+
+        ActiveEnemyTargetSprite();
+
+
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            Attack();
+        }
+
+
+
+
+        if (isMoving)
+        {
+            anim.ResetTrigger(Cache.Anim_Attack);
+            ChangeAnim(Cache.Anim_Run);
+            CancelInvoke(nameof(SpawnWeapon));
+        }
+        if (!isMoving)
+        {
+            ChangeAnim(Cache.Anim_Idle);
+        }
     }
 
     protected override void OnInit()
@@ -114,34 +136,42 @@ public class Player : Character
 
 
     // ban ra vien dan theo huong truoc mat character
-    public override void Attack()
+    public override void SpawnWeapon()
     {
-        base.Attack();
+        base.SpawnWeapon();
 
     }
     protected override void GetTargetOtherCharacter()
     {
         base.GetTargetOtherCharacter();
-        ActiveEnemyTargetSprite();
+        //ActiveEnemyTargetSprite();
     }
 
     private void ActiveEnemyTargetSprite()
     {
 
+        //if (IsHaveTargetAttack() == true)
+        //{
+        //    if (Vector3.Distance(this.transform.position, targetAttack.transform.position) <= rangeAttack)
+        //    {
+        //        targetAttack.GetComponent<Enemy>().spriteRenderer.enabled = true;
+        //    }
+        //    else
+        //    {
+        //        targetAttack.GetComponent<Enemy>().spriteRenderer.enabled = false;
+        //    }
+        //}
+
         if (IsHaveTargetAttack() == true)
         {
+            lastTargetAttack = targetAttack;
+            targetAttack.GetComponent<Enemy>().spriteRenderer.enabled = true;
 
-            SpriteRenderer targetSprite = targetAttack.GetComponent<Enemy>().spriteRenderer;
-
-            if (Vector3.Distance(this.transform.position, targetAttack.transform.position) <= rangeAttack)
-            {
-                targetSprite.enabled = true;
-            }
-            else
-            {
-                targetSprite.enabled = false;
-            }
         }
+        /*        if (IsHaveTargetAttack() == false && lastTargetAttack != null)
+                {
+                    lastTargetAttack.GetComponent<Enemy>().spriteRenderer.enabled = false;
+                }*/
     }
 
 

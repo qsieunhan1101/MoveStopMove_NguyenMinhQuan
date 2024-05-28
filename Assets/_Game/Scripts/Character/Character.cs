@@ -1,4 +1,6 @@
 using System.Collections;
+using TMPro;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -9,6 +11,7 @@ public class Character : MonoBehaviour
     public LayerMask characterLayerMask;
 
     [SerializeField] protected Transform targetAttack;
+    public Transform TargetAttack => targetAttack;
     protected Vector3 bulletDirection;
 
 
@@ -24,10 +27,20 @@ public class Character : MonoBehaviour
 
     [SerializeField] float forceAttack;
 
-    [SerializeField] private Transform bodyTransform;
+    [SerializeField] public Transform bodyTransform;
 
-    protected float frameRate = 1;
-    protected float time = 1f;
+    public float frameRate = 1;
+    public float time = 1f;
+
+    
+
+    //Anim
+    [SerializeField] protected Animator anim;
+    [SerializeField] protected string currentAnimName;
+
+
+    //pool
+    [SerializeField] private BulletBase bulletBasePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -50,37 +63,70 @@ public class Character : MonoBehaviour
     {
 
     }
-    public virtual void ChangeAnim()///////////////
+    public virtual void ChangeAnim(string animName)///////////////
     {
+        if (currentAnimName != animName)
+        {
+            anim.ResetTrigger(animName);
 
+            currentAnimName = animName;
+
+            anim.SetTrigger(currentAnimName);
+        }
 
     }
-    public virtual void Attack()/////////////////
+    public virtual void SpawnWeapon()/////////////////
     {
-       
-        GameObject b = Instantiate(bulletPrefab);
-        b.transform.position = bulletPoint.position;
+
+        //GameObject b = Instantiate(bulletPrefab);
+        //b.transform.position = bulletPoint.position;
+
+        BulletBase bb = SimplePool.Spawn<BulletBase>(PoolType.Bullet_1, bulletPoint.position, bulletPoint.rotation);
+            
         Vector3 dir = (bulletPointDir.position - this.transform.position).normalized;
-        b.GetComponent<BulletBase>().rb.AddForce(dir * forceAttack);
+
+        
+        //b.GetComponent<BulletBase>().rb.AddForce(dir * forceAttack);
+        //BulletBase bs = b.GetComponent<BulletBase>();
+        bb.forceAttack = forceAttack;
+        bb.dir = dir;
         int sign = 1;
         if (bulletPointDir.position.x < this.transform.position.x)
         {
             sign = -1;
         }
         angle = Vector3.Angle(bulletPointDir.forward, Vector3.forward) * sign;
-        b.transform.rotation = Quaternion.Euler(0, angle, 0);
+        bb.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
-    protected virtual void Death()/////////////////
+
+    public void Attack()
+    {
+        //Vector3 dir = (targetAttack.position - this.transform.position).normalized;
+        //GetRotation(dir);
+
+        
+        ChangeAnim(Cache.Anim_Attack);
+        Invoke(nameof(SpawnWeapon),0.5f);
+        
+    }
+
+    void Wait()
     {
 
+    }
+
+    protected virtual void Death()/////////////////
+    {
+                                                                
     }
     protected virtual void GetTargetOtherCharacter()
     {
-       
-        int numberHitEnemyCatch = Physics.OverlapSphereNonAlloc(this.transform.position, rangeAttack, enemyColliders, characterLayerMask);
 
+        int numberHitEnemyCatch = Physics.OverlapSphereNonAlloc(this.transform.position, rangeAttack, enemyColliders, characterLayerMask);
         float closestDistance = Mathf.Infinity;
+
         Transform lastTarget;
+
         for (int i = 0; i < numberHitEnemyCatch; i++)
         {
 
@@ -96,6 +142,7 @@ public class Character : MonoBehaviour
                 targetAttack = enemyColliders[i].transform;
                 closestDistance = distance;
                 Debug.Log(enemyColliders[i].name);
+                
             }
             if (numberHitEnemyCatch == 1)
             {

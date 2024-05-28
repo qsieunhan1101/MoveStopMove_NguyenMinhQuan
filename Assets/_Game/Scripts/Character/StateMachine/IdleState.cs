@@ -9,7 +9,9 @@ public class IdleState : IState
     public void OnEnter(Enemy enemy)
     {
         enemy.StopMoving();
-        timeIdle = 1f;
+        time = 0;
+        timeIdle = 2f;
+        enemy.ChangeAnim(Cache.Anim_Idle);
     }
 
     public void OnExecute(Enemy enemy)
@@ -18,6 +20,11 @@ public class IdleState : IState
         if (time >= timeIdle)
         {
             enemy.ChangeState(new MoveState());
+        }
+
+        if (enemy.IsHaveTargetAttack() == true)
+        {
+            enemy.ChangeState(new AttackState());
         }
         
     }

@@ -9,29 +9,33 @@ public class MoveState : IState
     Vector3 target;
     public void OnEnter(Enemy enemy)
     {
+        enemy.ChangeAnim(Cache.Anim_Run);
         time = 0f;
         randomTime = Random.Range(3,5);
         target = enemy.SetAgentDestination();
+        enemy.Move(target);
+        enemy.bodyTransform.transform.rotation = Quaternion.LookRotation((target - enemy.transform.position).normalized);
     }
 
     public void OnExecute(Enemy enemy)
     {
         Debug.Log("Day la MoveState");
+        enemy.transform.rotation = Quaternion.identity;
 
         time += Time.deltaTime;
 
         if (time >= randomTime)
         {
-            enemy.ChangeState(new MoveState());
+            enemy.ChangeState(new IdleState());
             time = 0;
         }
 
-        if (enemy.IsHaveTargetAttack())
+        if (enemy.IsHaveTargetAttack() == true)
         {
+            
             enemy.ChangeState(new AttackState());
         }
 
-        enemy.Move(target);
 
     }
 

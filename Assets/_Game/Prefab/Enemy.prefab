@@ -62,10 +62,14 @@ MonoBehaviour:
   enemyColliders: []
   forceAttack: 300
   bodyTransform: {fileID: 4958935898222852645}
+  frameRate: 1
+  time: 1
+  anim: {fileID: 3052224679354160991}
+  currentAnimName: 
+  bulletBasePrefab: {fileID: 1562520743842706727, guid: aa3749c345637394b8df669e7ba5fb51, type: 3}
   spriteRenderer: {fileID: 6006840230084441654}
   agent: {fileID: 8095088888467157316}
   radiusDestination: 10
-  testPos: {fileID: 0}
 --- !u!195 &8095088888467157316
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -383,7 +387,7 @@ PrefabInstance:
     - target: {fileID: -6057140222963153312, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: e6b4b125c22a5504ba5cb67707d22fac, type: 2}
+      objectReference: {fileID: 9100000, guid: 956b2864ceb4fe747afd1817056e0b5f, type: 2}
     - target: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -443,6 +447,11 @@ PrefabInstance:
       addedObject: {fileID: 1996546733807089363}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+--- !u!95 &3052224679354160991 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_PrefabInstance: {fileID: 120217455386218815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4958935898222852645 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
