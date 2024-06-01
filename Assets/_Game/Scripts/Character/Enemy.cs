@@ -8,11 +8,14 @@ public class Enemy : Character
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] private NavMeshAgent agent;
 
-    Vector3 destinationTarget;
-
+    private Vector3 destinationTarget;
+    public Vector3 DestinationTarget => destinationTarget;
     [SerializeField] private float radiusDestination = 10f;
 
 
+
+    [SerializeField] private bool isDead;
+    public bool IsDead => isDead;
 
 
     // Start is called before the first frame update
@@ -58,14 +61,10 @@ public class Enemy : Character
     protected override void OnInit()
     {
         base.OnInit();
+        isDead = false;
         ChangeState(new IdleState());
     }
 
-
-    public override void SpawnWeapon()
-    {
-        base.SpawnWeapon();
-    }
 
     public void Move(Vector3 target)
     {
@@ -95,10 +94,15 @@ public class Enemy : Character
 
     public Vector3 SetAgentDestination()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * radiusDestination;
+        Vector3 randomDirection = Random.insideUnitSphere.normalized * radiusDestination;
         randomDirection += transform.position;
         NavMeshHit navHit;
-        NavMesh.SamplePosition(randomDirection, out navHit, radiusDestination, -1);
+        bool hasHit = NavMesh.SamplePosition(randomDirection, out navHit, radiusDestination, -1);
+
+        if (hasHit == false)
+        {
+            return this.transform.position;
+        }
         return navHit.position;
     }
 
@@ -106,5 +110,17 @@ public class Enemy : Character
     {
         base.GetRotation(dir);
     }
+
+
+    public override void Death()
+    {
+        base.Death();
+        StopMoving();
+        ChangeAnim(Cache.Anim_Dead);
+        isDead = true;
+        this.gameObject.layer = LayerMask.NameToLayer("Default");
+    }
+
+
 
 }

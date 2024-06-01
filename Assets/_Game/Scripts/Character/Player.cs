@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private Rigidbody rb;
     private Vector3 startTouch, currentTouch;
     private Vector3 moveDirection;
 
@@ -16,11 +16,16 @@ public class Player : Character
 
 
     [SerializeField] private bool isMoving;
+    [SerializeField] private bool isDead;
+    public bool IsDead => isDead;
 
 
     [SerializeField] private Transform lastTargetAttack;
 
 
+
+
+   
 
 
     // Start is called before the first frame update
@@ -38,23 +43,46 @@ public class Player : Character
     void Update()
     {
 
-        Move();
+        if (!isDead)
+        {
+            Move();
+
+        }
+
 
         //attack
-        if (isMoving == false && IsHaveTargetAttack())
+        //if (isMoving == false && IsHaveTargetAttack() && !isDead)
+        //{
+        //    time += Time.deltaTime;
+        //    if (time >= frameRate)
+        //    {
+        //        Vector3 dir = (targetAttack.transform.position - this.transform.position).normalized;
+        //        GetRotation(dir);
+        //        time -= frameRate;
+        //        Attack();
+        //    }
+        //}
+        if (isMoving == false && IsHaveTargetAttack() && !isDead)
         {
-            time += Time.deltaTime;
-            if (time >= frameRate)
+            if (Time.time >= nextTimeToFire)
             {
+                nextTimeToFire = Time.time + fireRate;
+
                 Vector3 dir = (targetAttack.transform.position - this.transform.position).normalized;
                 GetRotation(dir);
-                time -= frameRate;
                 Attack();
             }
         }
+        if (isMoving)
+        {
+            nextTimeToFire = 0;
+        }
+
+
+
         if (isMoving == true && !IsHaveTargetAttack())
         {
-            time = frameRate;
+            nextTimeToFire = fireRate;
         }
 
 
@@ -67,6 +95,8 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.N))
         {
             Attack();
+            Debug.Log(originalScale);
+            UpdateSize((int)characterScore);
         }
 
 
@@ -78,7 +108,7 @@ public class Player : Character
             ChangeAnim(Cache.Anim_Run);
             CancelInvoke(nameof(SpawnWeapon));
         }
-        if (!isMoving)
+        if (!isMoving && !isDead)
         {
             ChangeAnim(Cache.Anim_Idle);
         }
@@ -87,10 +117,23 @@ public class Player : Character
     protected override void OnInit()
     {
         base.OnInit();
+        isDead = false;
+        this.gameObject.layer = LayerMask.NameToLayer("Character");
+
+
     }
     protected override void OnDespawn()
     {
         base.OnDespawn();
+    }
+
+    public override void Death()
+    {
+        base.Death();
+        isDead = true;
+        ChangeAnim(Cache.Anim_Dead);
+        this.gameObject.layer = LayerMask.NameToLayer("Default");
+
     }
 
     private void Move()
@@ -100,7 +143,7 @@ public class Player : Character
         {
             GetRotation(rotationDirection);
         }
-        _rb.velocity = new Vector3(moveDirection.x * speed, _rb.velocity.y, moveDirection.z * speed);
+        rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, moveDirection.z * speed);
     }
     private void GetTouchDirection()
     {
@@ -168,10 +211,10 @@ public class Player : Character
             targetAttack.GetComponent<Enemy>().spriteRenderer.enabled = true;
 
         }
-        /*        if (IsHaveTargetAttack() == false && lastTargetAttack != null)
-                {
-                    lastTargetAttack.GetComponent<Enemy>().spriteRenderer.enabled = false;
-                }*/
+        if (IsHaveTargetAttack() == false && lastTargetAttack != null)
+        {
+            lastTargetAttack.GetComponent<Enemy>().spriteRenderer.enabled = false;
+        }
     }
 
 

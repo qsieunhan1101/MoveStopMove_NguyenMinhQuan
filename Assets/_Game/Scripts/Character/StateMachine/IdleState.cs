@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IdleState : IState
@@ -10,14 +8,23 @@ public class IdleState : IState
     {
         enemy.StopMoving();
         time = 0;
-        timeIdle = 2f;
-        enemy.ChangeAnim(Cache.Anim_Idle);
+        timeIdle = 2.5f;
+
+        if (enemy.IsDead == false)
+        {
+            enemy.ChangeAnim(Cache.Anim_Idle);
+        }
+        else
+        {
+            enemy.ChangeAnim(Cache.Anim_Dead);
+
+        }
     }
 
     public void OnExecute(Enemy enemy)
     {
         time += Time.deltaTime;
-        if (time >= timeIdle)
+        if (time >= timeIdle && enemy.IsDead == false)
         {
             enemy.ChangeState(new MoveState());
         }
@@ -26,11 +33,11 @@ public class IdleState : IState
         {
             enemy.ChangeState(new AttackState());
         }
-        
+
     }
 
     public void OnExit(Enemy enemy)
     {
-        
+
     }
 }

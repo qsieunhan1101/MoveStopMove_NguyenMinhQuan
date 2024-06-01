@@ -2,9 +2,11 @@ using UnityEngine;
 
 public enum PoolType
 {
-    Bullet_1 = 0,
-    Bullet_2 = 1,
-    Bullet_3 = 2,
+    None = 0,
+    Enemy = 1,
+    Bullet_1 = 2,
+    Bullet_2 = 3,
+    Bullet_3 = 4,
 }
 public class PoolControl : MonoBehaviour
 {

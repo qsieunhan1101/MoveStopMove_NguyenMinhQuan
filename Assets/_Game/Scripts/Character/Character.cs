@@ -3,11 +3,12 @@ using TMPro;
 using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : GameUnit
 {
     [SerializeField] protected CharacterState charState;
 
-    public float rangeAttack;
+    [SerializeField] protected float rangeAttack;
+    private float rangeAttackDefault;
     public LayerMask characterLayerMask;
 
     [SerializeField] protected Transform targetAttack;
@@ -15,10 +16,12 @@ public class Character : MonoBehaviour
     protected Vector3 bulletDirection;
 
 
-
+    //Weapon
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform bulletPoint;
     [SerializeField] protected Transform bulletPointDir;
+    public float fireRate = 1f;
+    public float nextTimeToFire = 0f;
     protected float angle;
 
 
@@ -27,12 +30,16 @@ public class Character : MonoBehaviour
 
     [SerializeField] float forceAttack;
 
+
+
     [SerializeField] public Transform bodyTransform;
+    protected Vector3 originalScale;
 
-    public float frameRate = 1;
-    public float time = 1f;
+    //Text Name, Score
+    [SerializeField] protected TextMeshPro characterTextName;
+    [SerializeField] protected TextMeshPro characterTextScore;
+    public int characterScore = 0;
 
-    
 
     //Anim
     [SerializeField] protected Animator anim;
@@ -45,7 +52,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -56,12 +63,14 @@ public class Character : MonoBehaviour
     protected virtual void OnInit()/////////////////
     {
         enemyColliders = new Collider[10];
+        originalScale = transform.localScale;
+        rangeAttackDefault = rangeAttack;
 
     }
 
     protected virtual void OnDespawn()//////////////////
     {
-
+        
     }
     public virtual void ChangeAnim(string animName)///////////////
     {
@@ -82,10 +91,10 @@ public class Character : MonoBehaviour
         //b.transform.position = bulletPoint.position;
 
         BulletBase bb = SimplePool.Spawn<BulletBase>(PoolType.Bullet_1, bulletPoint.position, bulletPoint.rotation);
-            
+        bb.SetCharacterOwner(this);    
+
         Vector3 dir = (bulletPointDir.position - this.transform.position).normalized;
 
-        
         //b.GetComponent<BulletBase>().rb.AddForce(dir * forceAttack);
         //BulletBase bs = b.GetComponent<BulletBase>();
         bb.forceAttack = forceAttack;
@@ -115,9 +124,9 @@ public class Character : MonoBehaviour
 
     }
 
-    protected virtual void Death()/////////////////
+    public virtual void Death()/////////////////
     {
-                                                                
+
     }
     protected virtual void GetTargetOtherCharacter()
     {
@@ -152,7 +161,7 @@ public class Character : MonoBehaviour
 
     }
 
-    protected virtual Quaternion GetRotation(Vector3 rotation)
+    public virtual Quaternion GetRotation(Vector3 rotation)
     {
         return bodyTransform.rotation = Quaternion.LookRotation(rotation);
     }
@@ -172,6 +181,39 @@ public class Character : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public virtual void SetScore()
+    {
+        characterScore++;
+        characterTextScore.text = characterScore.ToString();
+        UpdateSize(characterScore);
+    }
+    public virtual void UpdateSize(int scorePoint)
+    {
+        if (scorePoint >= 2 && scorePoint < 5)
+        {
+            transform.localScale = originalScale * 1.25f;
+            rangeAttack = rangeAttackDefault * 1.25f;
+        }
+        if (scorePoint >= 5 && scorePoint < 10)
+        {
+            transform.localScale = originalScale * 1.5f;
+            rangeAttack = rangeAttackDefault * 1.5f;
+
+        }
+        if (scorePoint >= 10 && scorePoint < 25)
+        {
+            transform.localScale = originalScale * 2f;
+            rangeAttack = rangeAttackDefault * 2f;
+
+        }
+        if (scorePoint >= 25)
+        {
+            transform.localScale = originalScale * 2.25f;
+            rangeAttack = rangeAttackDefault * 2.25f;
+
         }
     }
 }
