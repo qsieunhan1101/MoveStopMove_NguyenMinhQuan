@@ -38,7 +38,19 @@ public class Player : Character
 
         //ChangeState(new IdleState(), this);
     }
+    private void OnEnable()
+    {
+        CanvasWeapon.buttonSelectEvent += EquippedWeapon;
+    
 
+    }
+
+    private void OnDisable()
+    {
+        CanvasWeapon.buttonSelectEvent -= EquippedWeapon;
+
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -218,6 +230,19 @@ public class Player : Character
     }
 
 
+    public override void EquippedWeapon(WeaponType wType)
+    {
+        base.EquippedWeapon(wType);
+        Debug.Log("thang canvasWeapon an Select");
+        weaponType = wType;
+        weaponHandPrefab = userData.GetWeaponData(weaponType).weaponHand;
 
+        foreach (Transform child in weaponHand)
+        {
+            DestroyObject(child.gameObject);
+        }
+ 
+        Instantiate(weaponHandPrefab, weaponHand);
+    }
 
 }

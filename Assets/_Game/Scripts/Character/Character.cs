@@ -28,7 +28,13 @@ public class Character : GameUnit
     [SerializeField] protected Collider[] enemyColliders;
 
 
-    [SerializeField] float forceAttack;
+    [SerializeField] private float forceAttack;
+
+    //weapon equipp
+    [SerializeField] protected Transform weaponHand;
+    [SerializeField] protected GameObject weaponHandPrefab;
+    [SerializeField] public WeaponType weaponType;
+    [SerializeField] protected UserData userData;
 
 
 
@@ -215,5 +221,10 @@ public class Character : GameUnit
             rangeAttack = rangeAttackDefault * 2.25f;
 
         }
+    }
+
+    public virtual void EquippedWeapon(WeaponType wType)
+    {
+        
     }
 }

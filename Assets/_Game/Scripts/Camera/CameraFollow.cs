@@ -8,12 +8,11 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] public GameObject target;
     [SerializeField] private float smoothTime;
     private Vector3 current = Vector3.zero;
-    public float distanceFormTager = 10f;
-    public float heightAboveTager = 5f;
+
 
     private void Start()
     {
-        SetUpCamera();
+        SetUpCamera(10,5);
     }
 
     // Update is called once per frame
@@ -36,7 +35,7 @@ public class CameraFollow : MonoBehaviour
 
     }
 
-    public void SetUpCamera()
+    public void SetUpCamera(float distanceFormTager, float heightAboveTager)
     {
         Vector3 newPosition = target.transform.position - target.transform.forward * distanceFormTager;
         newPosition.y = target.transform.position.y + heightAboveTager;
