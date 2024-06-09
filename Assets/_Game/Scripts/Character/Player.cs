@@ -1,3 +1,5 @@
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Character
@@ -132,7 +134,8 @@ public class Player : Character
         isDead = false;
         this.gameObject.layer = LayerMask.NameToLayer("Character");
 
-
+        this.weaponType = PlayerDataController.Instance.GetWeaponState();
+        EquippedWeapon(this.weaponType);
     }
     protected override void OnDespawn()
     {
@@ -239,7 +242,7 @@ public class Player : Character
 
         foreach (Transform child in weaponHand)
         {
-            DestroyObject(child.gameObject);
+            Destroy(child.gameObject);
         }
  
         Instantiate(weaponHandPrefab, weaponHand);

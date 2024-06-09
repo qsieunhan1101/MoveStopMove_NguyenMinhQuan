@@ -595,6 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnclose: 0
+  btnPause: {fileID: 6974800003324027005}
 --- !u!223 &2169821600180071022
 Canvas:
   m_ObjectHideFlags: 0

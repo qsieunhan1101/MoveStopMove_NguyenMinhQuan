@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public enum WeaponType
 {
@@ -50,6 +50,4 @@ public class WeaponData
     public int weaponPrice;
     public GameObject weaponPrefab;
     public GameObject weaponHand;
-
-
 }

@@ -1,6 +1,4 @@
-using System.Collections;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class Character : GameUnit
@@ -58,7 +56,7 @@ public class Character : GameUnit
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -76,7 +74,7 @@ public class Character : GameUnit
 
     protected virtual void OnDespawn()//////////////////
     {
-        
+
     }
     public virtual void ChangeAnim(string animName)///////////////
     {
@@ -96,8 +94,8 @@ public class Character : GameUnit
         //GameObject b = Instantiate(bulletPrefab);
         //b.transform.position = bulletPoint.position;
 
-        BulletBase bb = SimplePool.Spawn<BulletBase>(PoolType.Bullet_1, bulletPoint.position, bulletPoint.rotation);
-        bb.SetCharacterOwner(this);    
+        BulletBase bb = SimplePool.Spawn<BulletBase>((PoolType)weaponType, bulletPoint.position, bulletPoint.rotation);
+        bb.SetCharacterOwner(this);
 
         Vector3 dir = (bulletPointDir.position - this.transform.position).normalized;
 
@@ -119,10 +117,10 @@ public class Character : GameUnit
         //Vector3 dir = (targetAttack.position - this.transform.position).normalized;
         //GetRotation(dir);
 
-        
+
         ChangeAnim(Cache.Anim_Attack);
-        Invoke(nameof(SpawnWeapon),0.5f);
-        
+        Invoke(nameof(SpawnWeapon), 0.5f);
+
     }
 
     void Wait()
@@ -157,7 +155,7 @@ public class Character : GameUnit
                 targetAttack = enemyColliders[i].transform;
                 closestDistance = distance;
                 Debug.Log(enemyColliders[i].name);
-                
+
             }
             if (numberHitEnemyCatch == 1)
             {
@@ -225,6 +223,6 @@ public class Character : GameUnit
 
     public virtual void EquippedWeapon(WeaponType wType)
     {
-        
+
     }
 }

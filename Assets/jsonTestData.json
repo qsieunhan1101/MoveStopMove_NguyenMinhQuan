@@ -1,0 +1,27 @@
+{
+    "keys": [
+        "Hammer",
+        "Lolipop",
+        "Knife",
+        "CandyCane",
+        "Bomerang",
+        "SwirlyPop",
+        "Axe",
+        "IceScream",
+        "BattleAxe",
+        "Arrow"
+    ],
+    "values": [
+        1,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "golds": 0
+}

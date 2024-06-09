@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabe02d7fe86693418abc708e61f9dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PoolType: 2
+  PoolType: 0
   characterOwner: {fileID: 0}
   rb: {fileID: 2612372736986120690}
   bodyAnim: {fileID: 369427079446542586}

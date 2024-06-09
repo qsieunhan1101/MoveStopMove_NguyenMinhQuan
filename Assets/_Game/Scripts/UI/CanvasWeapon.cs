@@ -1,31 +1,42 @@
 using System;
+using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CanvasWeapon : UICanvas
 {
+    [Header ("Button")]
     [SerializeField] private Button btnExit;
     [SerializeField] private Button btnLeft;
     [SerializeField] private Button btnRight;
     [SerializeField] private Button btnSelect;
+    [SerializeField] private Button btnBuy;
 
-    [SerializeField] private Image weaponIcon;
+    [Header("Image")]
+    [SerializeField] private Image weaponImg;
+    [SerializeField] private Sprite btnSelectImg;
+    [SerializeField] private Sprite btnEquippedImg;
+
+    [Header("Text")]
     [SerializeField] private TextMeshProUGUI weaponName;
+    [SerializeField] private TextMeshProUGUI btnSelectText;
+    [SerializeField] private TextMeshProUGUI btnBuyText;
 
-    //
+    [Header ("Data") ]
     [SerializeField] private UserData userData;
     [SerializeField] private WeaponData weaponData;
     [SerializeField] private WeaponType weaponType;
 
+   
 
 
-    ////////
-    [SerializeField] private IconData iconData;
-    [SerializeField] private IconIndex iconIndex;
+    public int aa;
 
     
     public static Action<WeaponType> buttonSelectEvent;
+
 
 
     private void Awake()
@@ -34,21 +45,23 @@ public class CanvasWeapon : UICanvas
         btnLeft.onClick.AddListener(OnClickLeft);
         btnRight.onClick.AddListener(OnClickRight);
         btnSelect.onClick.AddListener(OnClickSelect);
+        btnBuy.onClick.AddListener(OnClickBuy);
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+   
         OnInit();
+        
 
     }
 
     void OnInit()
     {
         weaponType = WeaponType.Hammer;
-        SetUIDataWeapon();
+        UIUpdate();
     }
 
 
@@ -59,19 +72,40 @@ public class CanvasWeapon : UICanvas
         UIManager.Instance.OpenUI<CanvasMenu>();
     }
 
-    void SetWeaponData()
+    void GetWeaponData()
     {
         weaponData = userData.GetWeaponData(weaponType);
     }
 
-    void SetUIDataWeapon()
+    void UIUpdate()
     {
-        /* iconWeapon.sprite = iconData.GetIconWeaponSprite(iconIndex);
-         nameWeapon.text = iconData.GetNameWeapon(iconIndex);*/
+        GetWeaponData();
 
-        SetWeaponData();
-        weaponIcon.sprite = weaponData.weaponIcon;
+        if (PlayerDataController.Instance.playerData.weaponPurchaseState[this.weaponType] == 0)
+        {
+            btnSelect.gameObject.SetActive(false);
+            btnBuy.gameObject.SetActive(true);
+
+        }
+        if (PlayerDataController.Instance.playerData.weaponPurchaseState[this.weaponType] == 1)
+        {
+            btnSelect.gameObject.SetActive(true);
+            btnSelect.image.sprite = btnSelectImg;
+            btnSelectText.text = "Select";
+            btnBuy.gameObject.SetActive(false);
+        }
+        if (PlayerDataController.Instance.playerData.weaponPurchaseState[this.weaponType] == 2)
+        {
+            btnSelect.gameObject.SetActive(true);
+            btnSelect.image.sprite = btnEquippedImg;
+            btnSelectText.text = "Eqquiped";
+            btnBuy.gameObject.SetActive(false);
+        }
+
+
+        weaponImg.sprite = weaponData.weaponIcon;
         weaponName.text = weaponData.weaponName;
+        btnBuyText.text = weaponData.weaponPrice.ToString();
     }
 
     void OnClickLeft()
@@ -81,7 +115,7 @@ public class CanvasWeapon : UICanvas
 
 
         weaponType = (WeaponType)Mathf.Max((int)weaponType - 1, 0);
-        SetUIDataWeapon();
+        UIUpdate();
     }
     void OnClickRight()
     {
@@ -89,7 +123,7 @@ public class CanvasWeapon : UICanvas
                 SetUIDataWeapon();*/
 
         weaponType = (WeaponType)Mathf.Min((int)weaponType + 1, System.Enum.GetValues(typeof(WeaponType)).Length - 1);
-        SetUIDataWeapon();
+        UIUpdate();
 
     }
     private void OnClickSelect()
@@ -98,6 +132,44 @@ public class CanvasWeapon : UICanvas
         {
 
             buttonSelectEvent(weaponType);
+        }
+        PlayerData p = PlayerDataController.Instance.playerData;
+        p.weaponPurchaseState[this.weaponType] = 2;
+
+        for (int i=0; i< p.weaponPurchaseState.Count-1;i++)
+        {
+            if (p.weaponPurchaseState[(WeaponType)i] == 2 && p.weaponPurchaseState.Keys.ElementAt(i) != this.weaponType)
+            {
+                p.weaponPurchaseState[(WeaponType)i] = 1;
+            }
+        }
+
+        PlayerDataController.Instance.UpdateDataPlayer();
+        UIUpdate();
+
+    }
+
+    private void OnClickBuy()
+    {
+        if (PlayerDataController.Instance.playerData.golds < weaponData.weaponPrice)
+        {
+            Debug.Log("khong du tien");
+  
+
+        }
+        else
+        {
+            Debug.Log("da mua");
+ 
+            PlayerData p = PlayerDataController.Instance.playerData;
+
+            p.golds = p.golds - weaponData.weaponPrice;
+            p.weaponPurchaseState[this.weaponType] = 1;
+
+            PlayerDataController.Instance.UpdateDataPlayer();
+
+            UIUpdate();
+
         }
     }
 
