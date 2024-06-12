@@ -1,0 +1,28 @@
+{
+    "dictionartHat": {
+        "keys": [
+            "Arrow",
+            "Cowboy",
+            "Crown",
+            "Ear",
+            "Hat",
+            "Hat_Cap",
+            "Hat_Yellow",
+            "Head_Phone",
+            "Horn"
+        ],
+        "values": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1
+        ]
+    },
+    "idListEquipment": 0,
+    "equipmentName": "Hat_Yellow"
+}

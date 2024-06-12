@@ -5,8 +5,6 @@ public class Character : GameUnit
 {
     [SerializeField] protected CharacterState charState;
 
-    [SerializeField] protected float rangeAttack;
-    private float rangeAttackDefault;
     public LayerMask characterLayerMask;
 
     [SerializeField] protected Transform targetAttack;
@@ -15,43 +13,56 @@ public class Character : GameUnit
 
 
     //Weapon
-    [SerializeField] protected GameObject bulletPrefab;
+    [Header ("Weapon")]
     [SerializeField] protected Transform bulletPoint;
     [SerializeField] protected Transform bulletPointDir;
+    [SerializeField] protected float rangeAttack;
+    private float rangeAttackDefault;
     public float fireRate = 1f;
     public float nextTimeToFire = 0f;
     protected float angle;
 
-
-    [SerializeField] protected Collider[] enemyColliders;
-
-
-    [SerializeField] private float forceAttack;
-
-    //weapon equipp
+    [Header ("Weapon_Skin")]
+    [SerializeField] public WeaponType weaponType;
     [SerializeField] protected Transform weaponHand;
     [SerializeField] protected GameObject weaponHandPrefab;
-    [SerializeField] public WeaponType weaponType;
-    [SerializeField] protected UserData userData;
+
+ 
+
+    protected Collider[] enemyColliders;
 
 
 
+
+    [Header ("Body_Anim")]
+    [SerializeField] protected Animator anim;
+    [SerializeField] protected string currentAnimName;
     [SerializeField] public Transform bodyTransform;
     protected Vector3 originalScale;
 
     //Text Name, Score
+    [Header ("Character_UI")]
     [SerializeField] protected TextMeshPro characterTextName;
     [SerializeField] protected TextMeshPro characterTextScore;
     public int characterScore = 0;
 
 
     //Anim
-    [SerializeField] protected Animator anim;
-    [SerializeField] protected string currentAnimName;
 
 
     //pool
+    [Header ("Pool")]
     [SerializeField] private BulletBase bulletBasePrefab;
+
+
+    //
+    [Header("Skin")]
+    [SerializeField] private int idListEquipment = 0;
+    [SerializeField] private string equipmentName;
+    [SerializeField] protected GameObject equipmentPrefab;
+    [SerializeField] protected Transform equipmentPosition;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -101,7 +112,7 @@ public class Character : GameUnit
 
         //b.GetComponent<BulletBase>().rb.AddForce(dir * forceAttack);
         //BulletBase bs = b.GetComponent<BulletBase>();
-        bb.forceAttack = forceAttack;
+        
         bb.dir = dir;
         int sign = 1;
         if (bulletPointDir.position.x < this.transform.position.x)
@@ -225,4 +236,10 @@ public class Character : GameUnit
     {
 
     }
+
+    public virtual void EquippedSkin(int idListEquiment, string equipmentName)
+    {
+
+    }
+
 }

@@ -14,7 +14,7 @@ public class CanvasWeapon : UICanvas
     [SerializeField] private Button btnSelect;
     [SerializeField] private Button btnBuy;
 
-    [Header("Image")]
+    [Header("Image/Sprite")]
     [SerializeField] private Image weaponImg;
     [SerializeField] private Sprite btnSelectImg;
     [SerializeField] private Sprite btnEquippedImg;
@@ -25,14 +25,10 @@ public class CanvasWeapon : UICanvas
     [SerializeField] private TextMeshProUGUI btnBuyText;
 
     [Header ("Data") ]
-    [SerializeField] private UserData userData;
     [SerializeField] private WeaponData weaponData;
     [SerializeField] private WeaponType weaponType;
 
    
-
-
-    public int aa;
 
     
     public static Action<WeaponType> buttonSelectEvent;
@@ -60,7 +56,8 @@ public class CanvasWeapon : UICanvas
 
     void OnInit()
     {
-        weaponType = WeaponType.Hammer;
+        //weaponType = WeaponType.Hammer;
+        weaponType = PlayerDataManager.Instance.GetWeaponState();
         UIUpdate();
     }
 
@@ -74,27 +71,27 @@ public class CanvasWeapon : UICanvas
 
     void GetWeaponData()
     {
-        weaponData = userData.GetWeaponData(weaponType);
+        weaponData = LocalDataManager.Instance.UserData.GetWeaponData(weaponType);
     }
 
     void UIUpdate()
     {
         GetWeaponData();
 
-        if (PlayerDataController.Instance.playerData.weaponPurchaseState[this.weaponType] == 0)
+        if (PlayerDataManager.Instance.playerData.weaponPurchaseState[this.weaponType] == 0)
         {
             btnSelect.gameObject.SetActive(false);
             btnBuy.gameObject.SetActive(true);
 
         }
-        if (PlayerDataController.Instance.playerData.weaponPurchaseState[this.weaponType] == 1)
+        if (PlayerDataManager.Instance.playerData.weaponPurchaseState[this.weaponType] == 1)
         {
             btnSelect.gameObject.SetActive(true);
             btnSelect.image.sprite = btnSelectImg;
             btnSelectText.text = "Select";
             btnBuy.gameObject.SetActive(false);
         }
-        if (PlayerDataController.Instance.playerData.weaponPurchaseState[this.weaponType] == 2)
+        if (PlayerDataManager.Instance.playerData.weaponPurchaseState[this.weaponType] == 2)
         {
             btnSelect.gameObject.SetActive(true);
             btnSelect.image.sprite = btnEquippedImg;
@@ -133,7 +130,7 @@ public class CanvasWeapon : UICanvas
 
             buttonSelectEvent(weaponType);
         }
-        PlayerData p = PlayerDataController.Instance.playerData;
+        PlayerData p = PlayerDataManager.Instance.playerData;
         p.weaponPurchaseState[this.weaponType] = 2;
 
         for (int i=0; i< p.weaponPurchaseState.Count-1;i++)
@@ -144,14 +141,15 @@ public class CanvasWeapon : UICanvas
             }
         }
 
-        PlayerDataController.Instance.UpdateDataPlayer();
+        PlayerDataManager.Instance.UpdateDataPlayer();
         UIUpdate();
-
+        Close(0);
+        UIManager.Instance.OpenUI<CanvasMenu>();
     }
 
     private void OnClickBuy()
     {
-        if (PlayerDataController.Instance.playerData.golds < weaponData.weaponPrice)
+        if (PlayerDataManager.Instance.playerData.golds < weaponData.weaponPrice)
         {
             Debug.Log("khong du tien");
   
@@ -161,12 +159,12 @@ public class CanvasWeapon : UICanvas
         {
             Debug.Log("da mua");
  
-            PlayerData p = PlayerDataController.Instance.playerData;
+            PlayerData p = PlayerDataManager.Instance.playerData;
 
             p.golds = p.golds - weaponData.weaponPrice;
             p.weaponPurchaseState[this.weaponType] = 1;
 
-            PlayerDataController.Instance.UpdateDataPlayer();
+            PlayerDataManager.Instance.UpdateDataPlayer();
 
             UIUpdate();
 

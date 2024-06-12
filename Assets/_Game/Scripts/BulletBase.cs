@@ -3,24 +3,18 @@ using UnityEngine;
 public class BulletBase : GameUnit
 {
 
+    public enum BulletType
+    {
+        Turning = 0,
+        NoTurning = 1,
+    }
+
+    [SerializeField] private BulletType bulletType = BulletType.Turning;
     [SerializeField] private Character characterOwner;
-
     public Rigidbody rb;
-
     [SerializeField] private Transform bodyAnim;
-
-    [SerializeField] private float time;
-
-    public float forceAttack;
     public Vector3 dir;
-
-
-    float t;
-
-
     public float speed = 5;
-
-
 
 
     // Start is called before the first frame update
@@ -38,17 +32,20 @@ public class BulletBase : GameUnit
     // Update is called once per frame
     void Update()
     {
-        //transform.position = transform.position + Vector3.forward *speed * Time.deltaTime;
-        //transform.Translate(Vector3.forward*speed*Time.deltaTime);
+
 
         transform.position = transform.position + dir * speed * Time.deltaTime;
 
-        bodyAnim.Rotate(new Vector3(0, 1, 0), 180 * speed * Time.deltaTime, Space.Self);
-        
+        if (bulletType == BulletType.Turning)
+        {
+            bodyAnim.Rotate(new Vector3(0, 1, 0), 180 * speed * Time.deltaTime, Space.Self);
+
+        }
+
     }
     public void OnInit()
     {
-        // rb.AddForce(dir * forceAttack);
+
     }
     public void OnDespawm()
     {

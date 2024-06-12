@@ -1,5 +1,3 @@
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Character
@@ -27,7 +25,7 @@ public class Player : Character
 
 
 
-   
+
 
 
     // Start is called before the first frame update
@@ -43,13 +41,14 @@ public class Player : Character
     private void OnEnable()
     {
         CanvasWeapon.buttonSelectEvent += EquippedWeapon;
-    
+        SkinItemUI.itemOnclickEvent += EquippedSkin;
 
     }
 
     private void OnDisable()
     {
         CanvasWeapon.buttonSelectEvent -= EquippedWeapon;
+        SkinItemUI.itemOnclickEvent -= EquippedSkin;
 
 
     }
@@ -133,9 +132,11 @@ public class Player : Character
         base.OnInit();
         isDead = false;
         this.gameObject.layer = LayerMask.NameToLayer("Character");
-
-        this.weaponType = PlayerDataController.Instance.GetWeaponState();
+        //load data weapon
+        this.weaponType = PlayerDataManager.Instance.GetWeaponState();
         EquippedWeapon(this.weaponType);
+
+        EquippedSkin(PlayerDataManager.Instance.GetEquipmentState().Item1, PlayerDataManager.Instance.GetEquipmentState().Item2);
     }
     protected override void OnDespawn()
     {
@@ -238,14 +239,49 @@ public class Player : Character
         base.EquippedWeapon(wType);
         Debug.Log("thang canvasWeapon an Select");
         weaponType = wType;
-        weaponHandPrefab = userData.GetWeaponData(weaponType).weaponHand;
+
+
+        weaponHandPrefab = LocalDataManager.Instance.UserData.GetWeaponData(weaponType).weaponHand;
 
         foreach (Transform child in weaponHand)
         {
             Destroy(child.gameObject);
         }
- 
+
         Instantiate(weaponHandPrefab, weaponHand);
+    }
+
+    public override void EquippedSkin(int idListEquiment, string equipmentName)
+    {
+        base.EquippedSkin(idListEquiment, equipmentName);
+
+        ResetSkin();
+
+        switch (idListEquiment)
+        {
+            case 0:
+                equipmentPrefab = ((HatData)LocalDataManager.Instance.UserData.GetEquipmentData(idListEquiment, equipmentName)).hatPrefab;
+                Instantiate(equipmentPrefab, equipmentPosition);
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+
+        }
+
+
+
+    }
+
+    private void ResetSkin()
+    {
+        foreach (Transform child in equipmentPosition)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
 }

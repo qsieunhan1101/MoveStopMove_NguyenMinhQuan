@@ -79,3 +79,47 @@ MonoBehaviour:
     weaponPrice: 500
     weaponPrefab: {fileID: 7542872910027881650, guid: 14f10c9850e6b5043890287d75b46eb7, type: 3}
     weaponHand: {fileID: 3532536127583253440, guid: 1433f2a108590dd409c5a2fd56591e09, type: 3}
+  listHatDatas:
+  - equipmentName: Arrow
+    equipmentIcon: {fileID: 21300000, guid: 2f8937590677b044b8619858abca9ecf, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 2198744525078292174, guid: 513cb2373c3b5c6408a9cde74ca6ecde, type: 3}
+  - equipmentName: Cowboy
+    equipmentIcon: {fileID: 21300000, guid: 7ecc7cd28cb66fb41ac2e56ca5e22d5c, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 8661464990191713916, guid: 346179eca72de154194f24a3859af6ac, type: 3}
+  - equipmentName: Crown
+    equipmentIcon: {fileID: 21300000, guid: a50fa6b5fea3d264cbec440c2da1dbf8, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 2237114540630670639, guid: 0bde4d4d8a2ba2049b6a00abe087552f, type: 3}
+  - equipmentName: Ear
+    equipmentIcon: {fileID: 21300000, guid: 5dd6afb8b1bc7b947853e77fc8811be4, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 1775845993389609912, guid: 32aa78cabbeeca5469458e6bd37b4181, type: 3}
+  - equipmentName: Hat
+    equipmentIcon: {fileID: 21300000, guid: 16a71104cd40fbd408c2919484df4cd7, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 2680044682780547958, guid: f0cbd8f2cde293d47acd343710386dcd, type: 3}
+  - equipmentName: Hat_Cap
+    equipmentIcon: {fileID: 21300000, guid: 76e934370403f35428e37cc379bed4c7, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 51815020081254044, guid: e049868ceb1d85f43a403de58b69a653, type: 3}
+  - equipmentName: Hat_Yellow
+    equipmentIcon: {fileID: 21300000, guid: 69fc10e773b5a814198a5883e168c2b7, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 3076335658734464473, guid: 9067467f65a0d724bb2373486b23c141, type: 3}
+  - equipmentName: Head_Phone
+    equipmentIcon: {fileID: 21300000, guid: 694f596b7929bdb409ba3630631783d9, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 9058761540069785277, guid: ee989cb47e2958846b7b00b46d92cf1c, type: 3}
+  - equipmentName: Horn
+    equipmentIcon: {fileID: 21300000, guid: c72f60a9ff619e54ea03f81d8477c714, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 8991880859099492727, guid: 0a3fd4e2cb5ff3943a57b7be26677a8a, type: 3}
+  - equipmentName: Rau
+    equipmentIcon: {fileID: 21300000, guid: 0721f07e295ea594ba265006fe888315, type: 3}
+    equipmentPrice: 100
+    hatPrefab: {fileID: 2739435546116163852, guid: 38c336b1734eaa94cbb9bf102c4a19c2, type: 3}
+  listPantDatas: []
+  listShieldDatas: []
+  listSkinDatas: []

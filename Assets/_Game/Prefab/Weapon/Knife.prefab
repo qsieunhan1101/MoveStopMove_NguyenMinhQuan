@@ -128,11 +128,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PoolType: 2
+  bulletType: 1
   characterOwner: {fileID: 0}
   rb: {fileID: 5830514742397177991}
   bodyAnim: {fileID: 2260411905474256488}
-  time: 1
-  forceAttack: 0
   dir: {x: 0, y: 0, z: 0}
   speed: 5
 --- !u!1001 &8909355055493628703
