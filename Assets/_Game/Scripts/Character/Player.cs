@@ -3,28 +3,14 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private Rigidbody rb;
-    private Vector3 startTouch, currentTouch;
-    private Vector3 moveDirection;
-
-    private Vector3 rotationDirection;
-
-
-
+    [SerializeField] private Transform lastTargetAttack;
     [SerializeField] private float speed;
-
-
-
-
     [SerializeField] private bool isMoving;
     [SerializeField] private bool isDead;
+    private Vector3 startTouch, currentTouch;
+    private Vector3 moveDirection;
+    private Vector3 rotationDirection;
     public bool IsDead => isDead;
-
-
-    [SerializeField] private Transform lastTargetAttack;
-
-
-
-
 
 
 
@@ -75,7 +61,7 @@ public class Player : Character
         //        Attack();
         //    }
         //}
-        if (isMoving == false && IsHaveTargetAttack() && !isDead)
+        if (isMoving == false && IsHaveTargetAttack() == true && !isDead)
         {
             if (Time.time >= nextTimeToFire)
             {
@@ -98,40 +84,35 @@ public class Player : Character
             nextTimeToFire = fireRate;
         }
 
+        if (GameManager.Instance.CurrentState == GameState.Gameplay)
+        {
 
-        GetTargetOtherCharacter();
+            GetTargetOtherCharacter();
+        }
 
         ActiveEnemyTargetSprite();
-
-
-
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            Attack();
-            Debug.Log(originalScale);
-            UpdateSize((int)characterScore);
-        }
 
 
 
 
         if (isMoving)
         {
-            anim.ResetTrigger(Cache.Anim_Attack);
-            ChangeAnim(Cache.Anim_Run);
+            anim.ResetTrigger(Constant.Anim_Attack);
+            ChangeAnim(Constant.Anim_Run);
             CancelInvoke(nameof(SpawnWeapon));
         }
         if (!isMoving && !isDead)
         {
-            ChangeAnim(Cache.Anim_Idle);
+            ChangeAnim(Constant.Anim_Idle);
         }
     }
 
     protected override void OnInit()
     {
         base.OnInit();
+
         isDead = false;
-        this.gameObject.layer = LayerMask.NameToLayer("Character");
+        this.gameObject.layer = LayerMask.NameToLayer(Constant.Layer_Character);
         //load data weapon
         this.weaponType = PlayerDataManager.Instance.GetWeaponState();
         EquippedWeapon(this.weaponType);
@@ -147,8 +128,8 @@ public class Player : Character
     {
         base.Death();
         isDead = true;
-        ChangeAnim(Cache.Anim_Dead);
-        this.gameObject.layer = LayerMask.NameToLayer("Default");
+        ChangeAnim(Constant.Anim_Dead);
+        this.gameObject.layer = LayerMask.NameToLayer(Constant.Layer_Default);
 
     }
 
@@ -163,6 +144,10 @@ public class Player : Character
     }
     private void GetTouchDirection()
     {
+        if (GameManager.Instance.GetCurrentState() != GameState.Gameplay)
+        {
+            return;
+        }
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -208,19 +193,6 @@ public class Player : Character
 
     private void ActiveEnemyTargetSprite()
     {
-
-        //if (IsHaveTargetAttack() == true)
-        //{
-        //    if (Vector3.Distance(this.transform.position, targetAttack.transform.position) <= rangeAttack)
-        //    {
-        //        targetAttack.GetComponent<Enemy>().spriteRenderer.enabled = true;
-        //    }
-        //    else
-        //    {
-        //        targetAttack.GetComponent<Enemy>().spriteRenderer.enabled = false;
-        //    }
-        //}
-
         if (IsHaveTargetAttack() == true)
         {
             lastTargetAttack = targetAttack;
@@ -237,7 +209,6 @@ public class Player : Character
     public override void EquippedWeapon(WeaponType wType)
     {
         base.EquippedWeapon(wType);
-        Debug.Log("thang canvasWeapon an Select");
         weaponType = wType;
 
 
@@ -257,17 +228,30 @@ public class Player : Character
 
         ResetSkin();
 
+        UserData userData = LocalDataManager.Instance.UserData;
+
         switch (idListEquiment)
         {
             case 0:
-                equipmentPrefab = ((HatData)LocalDataManager.Instance.UserData.GetEquipmentData(idListEquiment, equipmentName)).hatPrefab;
-                Instantiate(equipmentPrefab, equipmentPosition);
+                hatPrefab = ((HatData)userData.GetEquipmentData(idListEquiment, equipmentName)).hatPrefab;
+                Instantiate(hatPrefab, hatPosition);
                 break;
             case 1:
+                pantEquippedMaterial = ((PantData)userData.GetEquipmentData(idListEquiment, equipmentName)).pantMaterial;
+                pantMeshRenderer.material = pantEquippedMaterial;
                 break;
             case 2:
+                shieldPrefabs = ((ShieldData)userData.GetEquipmentData(idListEquiment, equipmentName)).shieldPrefab;
+                Instantiate(shieldPrefabs, shieldPosition);
                 break;
             case 3:
+                SkinData skinData = ((SkinData)userData.GetEquipmentData(idListEquiment, equipmentName));
+                pantEquippedMaterial = skinData.pantMaterial;
+                pantMeshRenderer.material = pantEquippedMaterial;
+                setMaterial = skinData.skinMaterial;
+                setMeshRenderer.material = setMaterial;
+                setPrefabs = skinData.skinPrefab;
+                Instantiate(setPrefabs, setPosition);
                 break;
 
         }
@@ -278,10 +262,21 @@ public class Player : Character
 
     private void ResetSkin()
     {
-        foreach (Transform child in equipmentPosition)
+        foreach (Transform child in hatPosition)
         {
             Destroy(child.gameObject);
         }
+        foreach (Transform child in shieldPosition)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in setPosition)
+        {
+            Destroy(child.gameObject);
+        }
+
+        pantMeshRenderer.material = originPantMaterial;
+        setMeshRenderer.material = originSetMaterial;
     }
 
 }

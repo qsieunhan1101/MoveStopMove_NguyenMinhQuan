@@ -1,44 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using JetBrains.Annotations;
 
-public enum WeaponType
-{
-    Hammer = 0,
-    Lolipop = 1,
-    Knife = 2,
-    CandyCane = 3,
-    Bomerang = 4,
-    SwirlyPop = 5,
-    Axe = 6,
-    IceScream = 7,
-    BattleAxe = 8,
-    Arrow = 9,
-    Uzi = 10,
-}
-
-public enum HatType
-{
-    Arrow = 0,
-    Cowboy = 1,
-    Crown = 2,
-    Ear = 3,
-    Hat = 4,
-    Hat_Cap = 5,
-    Hat_Yellow = 6,
-    Head_Phone = 7,
-    Horn = 8,
-    Rau = 9,
-
-}
 
 [CreateAssetMenu(fileName = "New User Data", menuName = "UserData")]
 
 public class UserData : ScriptableObject
 {
-    [Header ("Weapon")]
+    [Header("Weapon")]
     [SerializeField] private List<WeaponData> listWeaponDatas;
+    public List<WeaponData> ListWeaponData => listWeaponDatas;
 
 
     [Header("Hat")]
@@ -75,7 +45,7 @@ public class UserData : ScriptableObject
     }
 
     //Hat
-  
+
 
     public EquipmentData GetEquipmentData(int idListEquipment, string equipmentName)
     {
@@ -83,20 +53,19 @@ public class UserData : ScriptableObject
         {
             case 0:
                 return GetHatEquipmentData(equipmentName);
-                break;
             case 1:
-                break;
+                return GetPantEquipmentData(equipmentName);
             case 2:
-                break;
+                return GetShieldEquipmentData(equipmentName);
             case 3:
-                break;
+                return GetSkinEquipmentData(equipmentName);
         }
         return ListHatDatas[1];
     }
 
-    public HatData GetHatEquipmentData(string euipmentName)
+    private HatData GetHatEquipmentData(string euipmentName)
     {
-        for (int i = 0; i<ListHatDatas.Count-1;i++)
+        for (int i = 0; i < ListHatDatas.Count; i++)
         {
             if (ListHatDatas[i].equipmentName == euipmentName)
             {
@@ -105,13 +74,42 @@ public class UserData : ScriptableObject
         }
         return ListHatDatas[1];
     }
+    private PantData GetPantEquipmentData(string euipmentName)
+    {
+        for (int i = 0; i < ListPantDatas.Count; i++)
+        {
+            if (ListPantDatas[i].equipmentName == euipmentName)
+            {
+                return ListPantDatas[i];
+            }
+        }
+        return ListPantDatas[1];
+    }
 
-    //Pant
+    private ShieldData GetShieldEquipmentData(string euipmentName)
+    {
+        for (int i = 0; i < ListShieldDatas.Count; i++)
+        {
+            if (ListShieldDatas[i].equipmentName == euipmentName)
+            {
+                return ListShieldDatas[i];
+            }
+        }
+        return ListShieldDatas[1];
+    }
 
+    private SkinData GetSkinEquipmentData(string euipmentName)
+    {
+        for (int i = 0; i < ListSkinDatas.Count; i++)
+        {
+            if (ListSkinDatas[i].equipmentName == euipmentName)
+            {
+                return ListSkinDatas[i];
+            }
+        }
+        return ListSkinDatas[1];
+    }
 
-    //Shield
-
-    //Skin
 }
 
 [System.Serializable]
@@ -153,6 +151,8 @@ public class ShieldData : EquipmentData
 public class SkinData : EquipmentData
 {
     public Material skinMaterial;
+    public Material pantMaterial;
+    public GameObject skinPrefab;
 
 }
 

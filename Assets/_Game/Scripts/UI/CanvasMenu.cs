@@ -15,24 +15,8 @@ public class CanvasMenu : UICanvas
         btnWeapon.onClick.AddListener(OnClickWeapon);
         btnSkin.onClick.AddListener(OnClickSkin);
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnClickPlay()
     {
-        Close(0);
-        UIManager.Instance.OpenUI<CanvasGamePlay>();
-
-
         GameManager.Instance.ChangeState(GameState.Gameplay);
         CameraFollow.Instance.SetUpCamera(20,12);
     }

@@ -1,33 +1,36 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CanvasGamePlay : UICanvas
 {
     [SerializeField] private Button btnPause;
+    [SerializeField] private TextMeshProUGUI textTotalEnemy;
 
     private void Awake()
     {
         btnPause.onClick.AddListener(OnClickPause);
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        EnemyManager.totalEnemyUpdateEvent += UIUpdate;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        EnemyManager.totalEnemyUpdateEvent -= UIUpdate;
+
     }
     private void OnClickPause()
     {
-        Close(0);
-        UIManager.Instance.OpenUI<CanvasPause>();
+
+        GameManager.Instance.ChangeState(GameState.Pause);
+    }
+    private void UIUpdate()
+    {
+        textTotalEnemy.text = EnemyManager.Instance.TotalEnemy.ToString();
     }
 }

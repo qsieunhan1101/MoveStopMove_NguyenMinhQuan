@@ -120,6 +120,80 @@ MonoBehaviour:
     equipmentIcon: {fileID: 21300000, guid: 0721f07e295ea594ba265006fe888315, type: 3}
     equipmentPrice: 100
     hatPrefab: {fileID: 2739435546116163852, guid: 38c336b1734eaa94cbb9bf102c4a19c2, type: 3}
-  listPantDatas: []
-  listShieldDatas: []
-  listSkinDatas: []
+  listPantDatas:
+  - equipmentName: Batman
+    equipmentIcon: {fileID: 21300000, guid: 0806d2ad9e543b64dab8a6583c3b2039, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: 788191d7ec85aaf4897df08e87f204f5, type: 2}
+  - equipmentName: Chambi
+    equipmentIcon: {fileID: 21300000, guid: 6d8c21d8e55123441ba02ac0fce3d675, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: ad19e74f7885819489b26dd6f75d4d2f, type: 2}
+  - equipmentName: Comy
+    equipmentIcon: {fileID: 21300000, guid: 16a96fb5954afd84abacd4acf0818139, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: 854716e85370c574c9442b85adfebe32, type: 2}
+  - equipmentName: Dabao
+    equipmentIcon: {fileID: 21300000, guid: bf6c3011d09de5645b20958b4178cdf7, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: c6fa0e2867916d54b87425c2ff4fc41c, type: 2}
+  - equipmentName: Onion
+    equipmentIcon: {fileID: 21300000, guid: be770e2a4bda55147bff7cac14cb8b34, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: 9a8c9b053bb1e464381e6954eb68d077, type: 2}
+  - equipmentName: Pokemon
+    equipmentIcon: {fileID: 21300000, guid: a482b056a7db15c449864b0f6737a4cb, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: d3832bfa2e29fa347801b2cd4a9fb140, type: 2}
+  - equipmentName: Rainbow
+    equipmentIcon: {fileID: 21300000, guid: 17737506398ad284aa00a46f0508ac61, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: 9a3356a6bf4c33a4fbdc96e3b2618698, type: 2}
+  - equipmentName: Skull
+    equipmentIcon: {fileID: 21300000, guid: 25eaab120aefcd243b5c20ed406b1184, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: 7a91f01efb1737e41a636902d53567f1, type: 2}
+  - equipmentName: Vantim
+    equipmentIcon: {fileID: 21300000, guid: ce130da2d9627654994c26c5c9da1967, type: 3}
+    equipmentPrice: 100
+    pantMaterial: {fileID: 2100000, guid: 52f833460eabe1742a99277ed171d451, type: 2}
+  listShieldDatas:
+  - equipmentName: America
+    equipmentIcon: {fileID: 21300000, guid: 747d642799c526143b4b58d8bb495bc4, type: 3}
+    equipmentPrice: 100
+    shieldPrefab: {fileID: 4363027024273450627, guid: 482b8e0101207b14285894c628d7ca71, type: 3}
+  - equipmentName: Wakanda
+    equipmentIcon: {fileID: 21300000, guid: a66d4c558c1448f44a9eff655827912f, type: 3}
+    equipmentPrice: 100
+    shieldPrefab: {fileID: 7353307792180557351, guid: 3fce54f01c9668843a5a2c188961843c, type: 3}
+  listSkinDatas:
+  - equipmentName: Angel_Set
+    equipmentIcon: {fileID: 21300000, guid: 9f8e6f5ea0f849447b464193072ab6f3, type: 3}
+    equipmentPrice: 300
+    skinMaterial: {fileID: 2100000, guid: 4c03d2aa3f092ac4dbefeac3bfbcf1b4, type: 2}
+    pantMaterial: {fileID: 2100000, guid: 7cbdf00567b7d9442898cfb26a0f6bc8, type: 2}
+    skinPrefab: {fileID: 5147782155444200300, guid: bfcb36a493f6e9248b001f17a5d6e96e, type: 3}
+  - equipmentName: DeadPool_Set
+    equipmentIcon: {fileID: 21300000, guid: 7965f490c2ec6044d854d957fe85186e, type: 3}
+    equipmentPrice: 300
+    skinMaterial: {fileID: 2100000, guid: b86d590245d838c4eb47d9858b690993, type: 2}
+    pantMaterial: {fileID: 2100000, guid: ceb84d9b97db6fa43a44830c20f692e2, type: 2}
+    skinPrefab: {fileID: 2410274572058333333, guid: d532f229bee90c34cadbedec97296c99, type: 3}
+  - equipmentName: Devil_Set
+    equipmentIcon: {fileID: 21300000, guid: 591bf6bd34c3a3c4e9143ba55a6c7d7b, type: 3}
+    equipmentPrice: 300
+    skinMaterial: {fileID: 2100000, guid: bf99e6349c4ed6e4abfc451e25c9608c, type: 2}
+    pantMaterial: {fileID: 2100000, guid: 2c7beec06bcabee4a9a65b5f3c521b1a, type: 2}
+    skinPrefab: {fileID: 7802662902054745278, guid: 140dae051243c544196dec561defe1a5, type: 3}
+  - equipmentName: Thor_Set
+    equipmentIcon: {fileID: 21300000, guid: 0363a7557b133774f99bf84dcf6fcbed, type: 3}
+    equipmentPrice: 300
+    skinMaterial: {fileID: 2100000, guid: b2d08e6a92226584aaa37ab44fc10a38, type: 2}
+    pantMaterial: {fileID: 2100000, guid: 12cf4373b744cb147877f69baeca688f, type: 2}
+    skinPrefab: {fileID: 5466616705804282165, guid: 743132c3ef38a4544b2e40220a88b42c, type: 3}
+  - equipmentName: Witch_Set
+    equipmentIcon: {fileID: 21300000, guid: 916eb971e2dc28b419a242fa6950df78, type: 3}
+    equipmentPrice: 300
+    skinMaterial: {fileID: 2100000, guid: b0d3dcb712d18624f85e6317869aa85b, type: 2}
+    pantMaterial: {fileID: 2100000, guid: d69fc6c4e6a4bfa48880d809223ae9d1, type: 2}
+    skinPrefab: {fileID: 6081103602962161919, guid: 9ba7949679fc59444a75fed46c03acdd, type: 3}

@@ -11,21 +11,12 @@ public class BulletBase : GameUnit
 
     [SerializeField] private BulletType bulletType = BulletType.Turning;
     [SerializeField] private Character characterOwner;
-    public Rigidbody rb;
     [SerializeField] private Transform bodyAnim;
     public Vector3 dir;
     public float speed = 5;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //OnInit();
-
-    }
     private void OnEnable()
     {
-        OnInit();
         Invoke(nameof(OnDespawm), 2);
     }
 
@@ -61,18 +52,18 @@ public class BulletBase : GameUnit
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(Cache.Layer_Character))
+        if (other.gameObject.layer == LayerMask.NameToLayer(Constant.Layer_Character))
         {
 
             if (other.transform != characterOwner.transform)
             {
-                if (other.CompareTag("Player"))
+                if (other.CompareTag(Constant.Tag_Player))
                 {
                     Player player = other.GetComponent<Player>();
                     player.Death();
                     characterOwner.SetScore();
                 }
-                if (other.CompareTag("Enemy"))
+                if (other.CompareTag(Constant.Tag_Enemy))
                 {
                     Enemy enemy = other.GetComponent<Enemy>();
                     enemy.Death();

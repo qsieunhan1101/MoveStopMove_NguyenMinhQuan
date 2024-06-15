@@ -16,7 +16,7 @@ public enum PoolType
 
 
     Enemy = 11,
-    None = 12,
+    None = 12,  
 }
 public class PoolControl : MonoBehaviour
 {

@@ -12,7 +12,7 @@ public class CameraFollow : Singleton<CameraFollow>
 
     private void Start()
     {
-        SetUpCamera(10,5);
+        //SetUpCamera(10,5);
     }
 
     // Update is called once per frame

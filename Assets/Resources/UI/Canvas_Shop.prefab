@@ -556,7 +556,12 @@ MonoBehaviour:
   btnIcon: {fileID: 8120896077966756065}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &17616381560403542
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -838,7 +843,12 @@ MonoBehaviour:
   btnIcon: {fileID: 4673149318836372614}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &6264680793688766418
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -990,6 +1000,7 @@ MonoBehaviour:
   - {fileID: 8488207027217962682}
   - {fileID: 5810919036983963443}
   - {fileID: 239154801256728480}
+  Buttons: []
   InactiveTabBG: {fileID: 0}
   ActiveTabBG: {fileID: 0}
   InactiveTabButtonSize: {x: 0, y: 0}
@@ -1501,8 +1512,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 336.2736, y: 0}
-  m_SizeDelta: {x: 2154.0996, y: 1053.0586}
+  m_AnchoredPosition: {x: 616.39355, y: 0}
+  m_SizeDelta: {x: 2714.3394, y: 1053.0586}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8230904957722802431
 MonoBehaviour:
@@ -1586,7 +1597,12 @@ MonoBehaviour:
   btnIcon: {fileID: 3710645047680046700}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &7974572109100022699
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1838,6 +1854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 610904706703923634}
+  - component: {fileID: 7437745813801886826}
   m_Layer: 5
   m_Name: Tab_Shield
   m_TagString: Untagged
@@ -1867,6 +1884,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7437745813801886826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026007253701006966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9394ae1ac2e484480591345526fe11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabType: 2
+  btnSelect_Equipped: {fileID: 2573999747426753034}
+  btnBuy: {fileID: 1603534472400493573}
+  buttonPrefabs: {fileID: 9162713707291169617, guid: be2f6503ea528224082c6ec37b260e16, type: 3}
+  buttonParent: {fileID: 3402743803201358838}
+  textPrice: {fileID: 5423314997117734207}
+  textSelect_Equipped: {fileID: 5332394137473496165}
+  equipments: []
 --- !u!1 &1026290485270723963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,7 +1962,12 @@ MonoBehaviour:
   btnIcon: {fileID: 1712196069181973843}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &2619742482698789381
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2425,6 +2467,7 @@ MonoBehaviour:
   buttonParent: {fileID: 4991691059614553266}
   textPrice: {fileID: 8333334377363315254}
   textSelect_Equipped: {fileID: 4634909578006714067}
+  equipments: []
 --- !u!1 &1587663694292695922
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,7 +2735,12 @@ MonoBehaviour:
   btnIcon: {fileID: 4841228479327884224}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &7832002317189868699
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2934,6 +2982,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1546211464957103248}
+  - component: {fileID: 5207642678344597229}
   m_Layer: 5
   m_Name: Tab_Pant
   m_TagString: Untagged
@@ -2963,6 +3012,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5207642678344597229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771032533846678309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9394ae1ac2e484480591345526fe11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabType: 1
+  btnSelect_Equipped: {fileID: 5689418303846673961}
+  btnBuy: {fileID: 4090976803840417399}
+  buttonPrefabs: {fileID: 9162713707291169617, guid: be2f6503ea528224082c6ec37b260e16, type: 3}
+  buttonParent: {fileID: 4539804699041734083}
+  textPrice: {fileID: 4075385417123927344}
+  textSelect_Equipped: {fileID: 8964477754945765194}
+  equipments: []
 --- !u!1 &1960915151637692352
 GameObject:
   m_ObjectHideFlags: 0
@@ -3293,7 +3362,12 @@ MonoBehaviour:
   btnIcon: {fileID: 4035639838990980224}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &391464568962520920
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3434,7 +3508,12 @@ MonoBehaviour:
   btnIcon: {fileID: 3009407816275226270}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &6032470974290870238
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3575,7 +3654,12 @@ MonoBehaviour:
   btnIcon: {fileID: 7169629426890776820}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &7987636396755819217
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3858,7 +3942,12 @@ MonoBehaviour:
   btnIcon: {fileID: 8180130667818783979}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &1498107666824613618
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3950,6 +4039,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 250265231880000002}
+  - component: {fileID: 1273180419134376071}
   m_Layer: 5
   m_Name: Tab_Skin
   m_TagString: Untagged
@@ -3979,6 +4069,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1273180419134376071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3151869527609364899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9394ae1ac2e484480591345526fe11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabType: 3
+  btnSelect_Equipped: {fileID: 1808442851412552359}
+  btnBuy: {fileID: 6339562432238988955}
+  buttonPrefabs: {fileID: 9162713707291169617, guid: be2f6503ea528224082c6ec37b260e16, type: 3}
+  buttonParent: {fileID: 7056429529026279130}
+  textPrice: {fileID: 6194281965230720824}
+  textSelect_Equipped: {fileID: 3375911923604777186}
+  equipments: []
 --- !u!1 &3274702684854523725
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,7 +4209,12 @@ MonoBehaviour:
   btnIcon: {fileID: 2765960254829059178}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &1479428563949676896
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4612,7 +4727,12 @@ MonoBehaviour:
   btnIcon: {fileID: 2421019241454949133}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &5551749276023152180
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4753,7 +4873,12 @@ MonoBehaviour:
   btnIcon: {fileID: 5848945501046398348}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &2881503600086502504
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4969,7 +5094,12 @@ MonoBehaviour:
   btnIcon: {fileID: 8481609216321324509}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &2025483753254246536
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5411,7 +5541,12 @@ MonoBehaviour:
   btnIcon: {fileID: 7377021968971599409}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &3399930962807846721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6623,7 +6758,12 @@ MonoBehaviour:
   btnIcon: {fileID: 1214932697179222523}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &2093032623989757721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6914,7 +7054,12 @@ MonoBehaviour:
   btnIcon: {fileID: 7973936864104403025}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &9046922318544939649
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7452,7 +7597,12 @@ MonoBehaviour:
   btnIcon: {fileID: 8041404775213349283}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &1515456159088893661
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7593,7 +7743,12 @@ MonoBehaviour:
   btnIcon: {fileID: 2955894698071935012}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &8631837374309481741
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7718,8 +7873,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 336.2736, y: 0}
-  m_SizeDelta: {x: 2154.0996, y: 1053.0586}
+  m_AnchoredPosition: {x: 544.80725, y: 0}
+  m_SizeDelta: {x: 2571.167, y: 1053.0586}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6462043922154832087
 MonoBehaviour:
@@ -8087,7 +8242,12 @@ MonoBehaviour:
   btnIcon: {fileID: 8121739225374176624}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &3442668299512819071
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8884,7 +9044,12 @@ MonoBehaviour:
   btnIcon: {fileID: 497466728223793576}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &834114823093412709
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9146,7 +9311,12 @@ MonoBehaviour:
   btnIcon: {fileID: 7502797464831022389}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &1418371287734446351
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9287,7 +9457,12 @@ MonoBehaviour:
   btnIcon: {fileID: 6841375296676997280}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &2593818582769258413
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9562,7 +9737,12 @@ MonoBehaviour:
   btnIcon: {fileID: 1201263670889827695}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &7449235052556175215
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9837,7 +10017,12 @@ MonoBehaviour:
   btnIcon: {fileID: 7029321615415021898}
   textPrice: {fileID: 0}
   textSelect_Equipped: {fileID: 0}
-  buttonIndex: 0
+  itemEquipmentData:
+    equipmentName: 
+    equipmentIcon: {fileID: 0}
+    equipmentPrice: 0
+  itemEquippedName: 
+  idPlayerEquipmentLocation: 0
 --- !u!222 &6544483308030032800
 CanvasRenderer:
   m_ObjectHideFlags: 0

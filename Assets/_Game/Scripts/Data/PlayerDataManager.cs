@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,63 +6,59 @@ using UnityEngine;
 public class PlayerDataManager : Singleton<PlayerDataManager>
 {
     [SerializeField] private JsonHandler jsonHandler;
-
     [SerializeField] private JsonEquipmentHandler jsonEquipmentHandler;
 
 
-    private const string FirstRunKey = "IsFirstRun";
-
+    private const string FirstRunKey = "IsFirstRun"; 
     public PlayerData playerData = new PlayerData((new Dictionary<WeaponType, int>(), new int()));
-
     public PlayerEquipmentData playerEquipmentData = new PlayerEquipmentData();
 
-    private void Awake()
-    {
 
-    }
+
+
     private void Start()
     {
-
-        /*for (int i =0; i< LocalDataManager.Instance.UserData.ListHatDatas.Count-1;i++)
-        {
-            playerEquipmentData.dictionartHat.AddElement(LocalDataManager.Instance.UserData.ListHatDatas[i].equipmentName, 0);
-        }
-
-
-        //test
-        jsonEquipmentHandler.SaveDataEquipment(playerEquipmentData);
-        playerEquipmentData.dictionartHat.UpdateElement(LocalDataManager.Instance.UserData.ListHatDatas[0].equipmentName, 1);
-        playerEquipmentData.dictionartHat.UpdateElement(LocalDataManager.Instance.UserData.ListHatDatas[3].equipmentName, 2);
-        jsonEquipmentHandler.SaveDataEquipment(playerEquipmentData);
-        */
-
-
-
-        //load playerEquipmentData
-        //playerEquipmentData = LoadPlayerEquipmentData();
-
-
         playerData = new PlayerData((new Dictionary<WeaponType, int>(), new int()));
+        playerEquipmentData = new PlayerEquipmentData();
+
 
         if (IsFirstRun())
         {
             //khoi tao gia tri weapon lan dau tien chay
-            for (int i = 0; i < Enum.GetValues(typeof(WeaponType)).Length - 1; i++)
+            for (int i = 0; i < LocalDataManager.Instance.UserData.ListWeaponData.Count; i++)
             {
                 playerData.weaponPurchaseState.Add((WeaponType)i, 0);
             }
-            jsonHandler.SaveDataToJson(playerData.weaponPurchaseState, 0);
+            jsonHandler.SaveDataToJson(playerData.weaponPurchaseState, 10000);
 
 
-            //khoi tao gia tri equipment lan dau tien chay
-            for (int i = 0; i < LocalDataManager.Instance.UserData.ListHatDatas.Count - 1; i++)
+            //khoi tao gia tri equipment Hat lan dau tien chay
+            for (int i = 0; i < LocalDataManager.Instance.UserData.ListHatDatas.Count; i++)
             {
                 playerEquipmentData.dictionartHat.AddElement(LocalDataManager.Instance.UserData.ListHatDatas[i].equipmentName, 0);
             }
 
+
+            //khoi tao gia tri equipment Pant lan dau tien chay
+            for (int i = 0; i < LocalDataManager.Instance.UserData.ListPantDatas.Count; i++)
+            {
+                playerEquipmentData.dictionartPant.AddElement(LocalDataManager.Instance.UserData.ListPantDatas[i].equipmentName, 0);
+            }
+
+            //khoi tao gia tri equipment Shield lan dau tien chay
+            for (int i = 0; i < LocalDataManager.Instance.UserData.ListShieldDatas.Count; i++)
+            {
+                playerEquipmentData.dictionartShield.AddElement(LocalDataManager.Instance.UserData.ListShieldDatas[i].equipmentName, 0);
+            }
+            for (int i = 0; i < LocalDataManager.Instance.UserData.ListSkinDatas.Count; i++)
+            {
+                playerEquipmentData.dictionartSkin.AddElement(LocalDataManager.Instance.UserData.ListSkinDatas[i].equipmentName, 0);
+            }
+
+
             jsonEquipmentHandler.SaveDataEquipment(playerEquipmentData);
 
-
+            //luu trang thai lan dau chay game
             Debug.Log("Lan dau tien chay game");
             PlayerPrefs.SetInt(FirstRunKey, 0);
             PlayerPrefs.Save();
@@ -79,10 +74,12 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
         playerData = LoadDataPlayer();
         //Load PlayerEquimentData
         playerEquipmentData = LoadPlayerEquipmentData();
+
+/*
         foreach (var item in playerData.weaponPurchaseState)
         {
             Debug.Log(item.Key + ": " + item.Value);
-        }
+        }*/
 
     }
 
@@ -98,7 +95,8 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
         if (Input.GetKeyDown(KeyCode.C))
         {
 
-            jsonHandler.SaveDataToJson(playerData.weaponPurchaseState, 1000);
+            jsonHandler.SaveDataToJson(playerData.weaponPurchaseState, 10000);
+            playerData = LoadDataPlayer();
 
         }
 

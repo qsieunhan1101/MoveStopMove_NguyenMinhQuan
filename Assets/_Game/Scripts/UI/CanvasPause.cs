@@ -14,27 +14,13 @@ public class CanvasPause : UICanvas
         btnHome.onClick.AddListener(OnClickHome);
         btnContinue.onClick.AddListener(OnClickContinue);
     }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnClickHome()
     {
-        Close(0);
-        UIManager.Instance.OpenUI<CanvasMenu>();
+
+        GameManager.Instance.ChangeState(GameState.MainMenu);
     }
     private void OnClickContinue()
     {
-        Close(0);
-        UIManager.Instance.OpenUI<CanvasGamePlay>();
+        GameManager.Instance.ChangeState(GameState.Gameplay);
     }
 }

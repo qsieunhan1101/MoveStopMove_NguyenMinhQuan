@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,23 +6,22 @@ public class Enemy : Character
 {
     IState currentState;
 
-    [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private float radiusDestination = 10f;
+    [SerializeField] private bool isDead;
 
     private Vector3 destinationTarget;
     public Vector3 DestinationTarget => destinationTarget;
-    [SerializeField] private float radiusDestination = 10f;
+    public SpriteRenderer spriteRenderer;
 
 
 
-    [SerializeField] private bool isDead;
     public bool IsDead => isDead;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         OnInit();
+        ChangeState(new IdleState());
     }
 
     // Update is called once per frame
@@ -32,27 +32,12 @@ public class Enemy : Character
             currentState.OnExecute(this);
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+
+        if (GameManager.Instance.CurrentState == GameState.Gameplay)
         {
-            if (IsHaveTargetAttack() == true)
-            {
-
-                Vector3 dir = (targetAttack.transform.position - this.transform.position).normalized;
-                GetRotation(dir);
-
-                SpawnWeapon();
-            }
+            GetTargetOtherCharacter();
 
         }
-
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            ChangeState(new MoveState());
-        }
-
-
-        GetTargetOtherCharacter();
 
 
     }
@@ -61,16 +46,35 @@ public class Enemy : Character
     protected override void OnInit()
     {
         base.OnInit();
+
         isDead = false;
         ChangeState(new IdleState());
+        this.gameObject.layer = LayerMask.NameToLayer(Constant.Layer_Character);
+
+    }
+
+    protected override void OnDespawn()
+    {
+        base.OnDespawn();
+        SimplePool.Despawn(this);
+        transform.position = new Vector3(-44, 0.5f, 43);
+        enemyColliders = new Collider[10];
     }
 
 
     public void Move(Vector3 target)
     {
-
+        if (isDead)
+        {
+            return;
+        }
         agent.SetDestination(target);
 
+    }
+
+    protected override void GetTargetOtherCharacter()
+    {
+        base.GetTargetOtherCharacter();
     }
 
     public void StopMoving()
@@ -94,7 +98,7 @@ public class Enemy : Character
 
     public Vector3 SetAgentDestination()
     {
-        Vector3 randomDirection = Random.insideUnitSphere.normalized * radiusDestination;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere.normalized * radiusDestination;
         randomDirection += transform.position;
         NavMeshHit navHit;
         bool hasHit = NavMesh.SamplePosition(randomDirection, out navHit, radiusDestination, -1);
@@ -115,10 +119,15 @@ public class Enemy : Character
     public override void Death()
     {
         base.Death();
+        this.gameObject.layer = LayerMask.NameToLayer(Constant.Layer_Default);
         StopMoving();
-        ChangeAnim(Cache.Anim_Dead);
+        ChangeAnim(Constant.Anim_Dead);
         isDead = true;
-        this.gameObject.layer = LayerMask.NameToLayer("Default");
+        targetAttack = null;
+
+        EnemyManager.Instance.UpdateTotalEnemy();
+
+        OnDespawn();
     }
 
 

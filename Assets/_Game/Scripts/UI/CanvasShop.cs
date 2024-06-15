@@ -9,26 +9,13 @@ public class CanvasShop : UICanvas
 
     [SerializeField] private GameObject[] Tabs;
     [SerializeField] private Image[] TabButtons;
+    [SerializeField] private Button[] Buttons;
     [SerializeField] private Sprite InactiveTabBG, ActiveTabBG;
     public Vector2 InactiveTabButtonSize, ActiveTabButtonSize;
-
-
 
     private void Awake()
     {
         btnExit.onClick.AddListener(OnClickExit);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SwitchToTab(int tabId)

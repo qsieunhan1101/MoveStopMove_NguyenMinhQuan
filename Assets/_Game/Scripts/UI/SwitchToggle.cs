@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class SwitchToggle : MonoBehaviour
 {
     [SerializeField] private RectTransform uiHandleRectTransform;
-
     [SerializeField] private Toggle toggle;
-    Vector2 handlePosition;
-
     [SerializeField] private Image handleImg;
     [SerializeField] private Sprite handleOnImg;
     [SerializeField] private Sprite handleOffImg;
+    private Vector2 handlePosition;
+
+
     private void Awake()
     {
         handlePosition = uiHandleRectTransform.anchoredPosition;

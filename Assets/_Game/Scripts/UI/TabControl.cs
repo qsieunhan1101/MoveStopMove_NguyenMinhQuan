@@ -28,9 +28,9 @@ public class TabControl : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textPrice;
     [SerializeField] private TextMeshProUGUI textSelect_Equipped;
 
-    int idPlayerEquipmentLocation;
+    private int idPlayerEquipmentLocation;
 
-    int amount;
+
 
 
     [SerializeField] private List<EquipmentData> equipments;
@@ -58,7 +58,7 @@ public class TabControl : MonoBehaviour
             Destroy(child.gameObject);
         }
         CheckTabType();
-        for (int i = 0; i < equipments.Count-1; i++)
+        for (int i = 0; i < equipments.Count; i++)
         {
             GameObject btn = Instantiate(buttonPrefabs, buttonParent);
             SkinItemUI itemData = btn.GetComponent<SkinItemUI>();
@@ -83,18 +83,19 @@ public class TabControl : MonoBehaviour
         }
         if (tabType == TabType.TabPant)
         {
+            equipments = LocalDataManager.Instance.UserData.ListPantDatas.Cast<EquipmentData>().ToList();
             idPlayerEquipmentLocation = 1;
 
         }
         if (tabType == TabType.TapShield)
         {
+            equipments = LocalDataManager.Instance.UserData.ListShieldDatas.Cast<EquipmentData>().ToList();
             idPlayerEquipmentLocation = 2;
-
         }
         if (tabType == TabType.TapSkin)
         {
+            equipments = LocalDataManager.Instance.UserData.ListSkinDatas.Cast<EquipmentData>().ToList();
             idPlayerEquipmentLocation = 3;
-
         }
     }
 }

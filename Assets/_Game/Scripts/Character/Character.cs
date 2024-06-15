@@ -29,7 +29,7 @@ public class Character : GameUnit
 
  
 
-    protected Collider[] enemyColliders;
+    [SerializeField] protected Collider[] enemyColliders;
 
 
 
@@ -46,10 +46,6 @@ public class Character : GameUnit
     [SerializeField] protected TextMeshPro characterTextScore;
     public int characterScore = 0;
 
-
-    //Anim
-
-
     //pool
     [Header ("Pool")]
     [SerializeField] private BulletBase bulletBasePrefab;
@@ -57,24 +53,29 @@ public class Character : GameUnit
 
     //
     [Header("Skin")]
+    //Hat
     [SerializeField] private int idListEquipment = 0;
     [SerializeField] private string equipmentName;
-    [SerializeField] protected GameObject equipmentPrefab;
-    [SerializeField] protected Transform equipmentPosition;
+    [SerializeField] protected GameObject hatPrefab;
+    [SerializeField] protected Transform hatPosition;
+    //Pant
+    [SerializeField] protected SkinnedMeshRenderer pantMeshRenderer;
+    [SerializeField] protected Material originPantMaterial;
+    [SerializeField] protected Material pantEquippedMaterial;
+    //Shield
+    [SerializeField] protected GameObject shieldPrefabs;
+    [SerializeField] protected Transform shieldPosition;
+    //Set
+    [SerializeField] protected SkinnedMeshRenderer setMeshRenderer;
+    [SerializeField] protected Material setMaterial;
+    [SerializeField] protected Material originSetMaterial;
+    [SerializeField] protected GameObject setPrefabs;
+    [SerializeField] protected Transform setPosition;
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    private bool isMaxSize = false;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     protected virtual void OnInit()/////////////////
     {
         enemyColliders = new Collider[10];
@@ -99,19 +100,13 @@ public class Character : GameUnit
         }
 
     }
-    public virtual void SpawnWeapon()/////////////////
+    public virtual void SpawnWeapon()
     {
-
-        //GameObject b = Instantiate(bulletPrefab);
-        //b.transform.position = bulletPoint.position;
 
         BulletBase bb = SimplePool.Spawn<BulletBase>((PoolType)weaponType, bulletPoint.position, bulletPoint.rotation);
         bb.SetCharacterOwner(this);
 
         Vector3 dir = (bulletPointDir.position - this.transform.position).normalized;
-
-        //b.GetComponent<BulletBase>().rb.AddForce(dir * forceAttack);
-        //BulletBase bs = b.GetComponent<BulletBase>();
         
         bb.dir = dir;
         int sign = 1;
@@ -125,11 +120,8 @@ public class Character : GameUnit
 
     public void Attack()
     {
-        //Vector3 dir = (targetAttack.position - this.transform.position).normalized;
-        //GetRotation(dir);
 
-
-        ChangeAnim(Cache.Anim_Attack);
+        ChangeAnim(Constant.Anim_Attack);
         Invoke(nameof(SpawnWeapon), 0.5f);
 
     }
@@ -145,7 +137,7 @@ public class Character : GameUnit
     }
     protected virtual void GetTargetOtherCharacter()
     {
-
+       
         int numberHitEnemyCatch = Physics.OverlapSphereNonAlloc(this.transform.position, rangeAttack, enemyColliders, characterLayerMask);
         float closestDistance = Mathf.Infinity;
 
@@ -165,7 +157,6 @@ public class Character : GameUnit
                 }
                 targetAttack = enemyColliders[i].transform;
                 closestDistance = distance;
-                Debug.Log(enemyColliders[i].name);
 
             }
             if (numberHitEnemyCatch == 1)
@@ -203,32 +194,32 @@ public class Character : GameUnit
     {
         characterScore++;
         characterTextScore.text = characterScore.ToString();
-        UpdateSize(characterScore);
+        //UpdateSize(characterScore);
     }
     public virtual void UpdateSize(int scorePoint)
     {
         if (scorePoint >= 2 && scorePoint < 5)
         {
-            transform.localScale = originalScale * 1.25f;
-            rangeAttack = rangeAttackDefault * 1.25f;
+            transform.localScale = originalScale * 1.05f;
+            rangeAttack = rangeAttackDefault * 1.05f;
         }
         if (scorePoint >= 5 && scorePoint < 10)
         {
-            transform.localScale = originalScale * 1.5f;
-            rangeAttack = rangeAttackDefault * 1.5f;
+            transform.localScale = originalScale * 1.1f;
+            rangeAttack = rangeAttackDefault * 1.1f;
 
         }
         if (scorePoint >= 10 && scorePoint < 25)
         {
-            transform.localScale = originalScale * 2f;
-            rangeAttack = rangeAttackDefault * 2f;
+            transform.localScale = originalScale * 1.15f;
+            rangeAttack = rangeAttackDefault * 1.15f;
 
         }
-        if (scorePoint >= 25)
+        if (scorePoint >= 25 && isMaxSize == false)
         {
-            transform.localScale = originalScale * 2.25f;
-            rangeAttack = rangeAttackDefault * 2.25f;
-
+            transform.localScale = originalScale * 1.2f;
+            rangeAttack = rangeAttackDefault * 1.2f;
+            isMaxSize = true;
         }
     }
 

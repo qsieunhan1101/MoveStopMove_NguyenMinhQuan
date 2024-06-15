@@ -9,10 +9,12 @@
         "Axe",
         "IceScream",
         "BattleAxe",
-        "Arrow"
+        "Arrow",
+        "Uzi"
     ],
     "values": [
         0,
+        1,
         0,
         0,
         0,
@@ -23,5 +25,5 @@
         0,
         0
     ],
-    "golds": 0
+    "golds": 9500
 }

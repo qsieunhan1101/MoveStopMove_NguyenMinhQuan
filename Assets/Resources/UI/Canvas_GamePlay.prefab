@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 597508822754781250}
   - component: {fileID: 8183202348592086721}
   m_Layer: 5
-  m_Name: Text_Number
+  m_Name: Text_TotalEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,6 +596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyOnclose: 0
   btnPause: {fileID: 6974800003324027005}
+  textTotalEnemy: {fileID: 8183202348592086721}
 --- !u!223 &2169821600180071022
 Canvas:
   m_ObjectHideFlags: 0

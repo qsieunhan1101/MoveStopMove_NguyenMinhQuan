@@ -19,17 +19,17 @@ public class SkinItemUI : MonoBehaviour
     public TextMeshProUGUI textPrice;
     public TextMeshProUGUI textSelect_Equipped;
 
-    public EquipmentData itemEquipmentData;
-
+    [Header ("Data")]
     [SerializeField] private string itemEquippedName;
-
-    public int idPlayerEquipmentLocation = 0;
-
-
     private Dictionary<string, int> itemDictionaryData = new Dictionary<string, int>();
 
-
+    public int idPlayerEquipmentLocation = 0;
+    public EquipmentData itemEquipmentData;
     public static Action<int, string> itemOnclickEvent;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,9 +61,12 @@ public class SkinItemUI : MonoBehaviour
 
     void OnClickItem()
     {
+        
+        
         UIUpdate();
         btnBuy.onClick.AddListener(OnClickBuy);
         btnSelect_Equipped.onClick.AddListener(OnClickSelect);
+
         itemOnclickEvent(idPlayerEquipmentLocation, itemEquippedName);
 
     }
@@ -73,6 +76,7 @@ public class SkinItemUI : MonoBehaviour
         PlayerDataManager.Instance.playerEquipmentData.idListEquipment = idPlayerEquipmentLocation;
         PlayerDataManager.Instance.playerEquipmentData.equipmentName = itemEquippedName;
         PlayerDataManager.Instance.UpdatePlayerEquipmentData();
+        UIUpdate();
 
     }
 
@@ -92,8 +96,8 @@ public class SkinItemUI : MonoBehaviour
 
         GetDictionaryEquipmentDataByID();
 
-
         int equipmentPurchaseState = itemDictionaryData[itemEquippedName];
+        
         if (equipmentPurchaseState == 0)
         {
             btnSelect_Equipped.gameObject.SetActive(false);
@@ -107,7 +111,7 @@ public class SkinItemUI : MonoBehaviour
             textSelect_Equipped.text = "Select";
 
         }
-        if (equipmentPurchaseState == 2)
+        if (PlayerDataManager.Instance.playerEquipmentData.equipmentName == itemEquippedName)
         {
             btnSelect_Equipped.gameObject.SetActive(true);
             btnBuy.gameObject.SetActive(false);
@@ -121,13 +125,15 @@ public class SkinItemUI : MonoBehaviour
         {
             case 0:
                 itemDictionaryData = PlayerDataManager.Instance.playerEquipmentData.dictionartHat.ToDictionary();
-
                 break;
             case 1:
+                itemDictionaryData = PlayerDataManager.Instance.playerEquipmentData.dictionartPant.ToDictionary();
                 break;
             case 2:
+                itemDictionaryData = PlayerDataManager.Instance.playerEquipmentData.dictionartShield.ToDictionary();
                 break;
             case 3:
+                itemDictionaryData = PlayerDataManager.Instance.playerEquipmentData.dictionartSkin.ToDictionary();
                 break;
         }
     }

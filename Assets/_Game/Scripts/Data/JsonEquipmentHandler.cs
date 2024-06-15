@@ -30,11 +30,17 @@ public class JsonEquipmentHandler : MonoBehaviour
 public class PlayerEquipmentData
 {
     public DictionaryWapper<string, int> dictionartHat;
+    public DictionaryWapper<string, int> dictionartPant;
+    public DictionaryWapper<string, int> dictionartShield;
+    public DictionaryWapper<string, int> dictionartSkin;
     public int idListEquipment;
     public string equipmentName;
     public PlayerEquipmentData()
     {
         dictionartHat = new DictionaryWapper<string, int>();
+        dictionartPant = new DictionaryWapper<string, int>();
+        dictionartShield = new DictionaryWapper<string, int>();
+        dictionartSkin = new DictionaryWapper<string, int>();
         idListEquipment = 0;
         equipmentName = "Arrow";
     }
@@ -45,13 +51,12 @@ public class PlayerEquipmentData
         {
             case 0:
                 return dictionartHat;
-                break;
             case 1:
-                break;
+                return dictionartPant;
             case 2:
-                break;
+                return dictionartShield;
             case 3:
-                break;
+                return dictionartSkin;
         }
         return dictionartHat;
     }

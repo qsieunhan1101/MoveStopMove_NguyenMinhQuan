@@ -12,11 +12,11 @@ public class IdleState : IState
 
         if (enemy.IsDead == false)
         {
-            enemy.ChangeAnim(Cache.Anim_Idle);
+            enemy.ChangeAnim(Constant.Anim_Idle);
         }
         else
         {
-            enemy.ChangeAnim(Cache.Anim_Dead);
+            enemy.ChangeAnim(Constant.Anim_Dead);
 
         }
     }
@@ -24,7 +24,7 @@ public class IdleState : IState
     public void OnExecute(Enemy enemy)
     {
         time += Time.deltaTime;
-        if (time >= timeIdle && enemy.IsDead == false)
+        if (time >= timeIdle && enemy.IsDead == false && GameManager.Instance.CurrentState == GameState.Gameplay)
         {
             enemy.ChangeState(new MoveState());
         }

@@ -47,10 +47,8 @@ public class CanvasWeapon : UICanvas
 
     // Start is called before the first frame update
     void Start()
-    {
-   
+    { 
         OnInit();
-        
 
     }
 
@@ -60,7 +58,6 @@ public class CanvasWeapon : UICanvas
         weaponType = PlayerDataManager.Instance.GetWeaponState();
         UIUpdate();
     }
-
 
 
     void OnClickExit()
@@ -107,18 +104,11 @@ public class CanvasWeapon : UICanvas
 
     void OnClickLeft()
     {
-        /*   iconIndex = (IconIndex)Mathf.Max((int)iconIndex - 1, 0);
-           SetUIDataWeapon();*/
-
-
         weaponType = (WeaponType)Mathf.Max((int)weaponType - 1, 0);
         UIUpdate();
     }
     void OnClickRight()
     {
-        /*        iconIndex = (IconIndex)Mathf.Min((int)iconIndex + 1, System.Enum.GetValues(typeof(IconIndex)).Length - 1);
-                SetUIDataWeapon();*/
-
         weaponType = (WeaponType)Mathf.Min((int)weaponType + 1, System.Enum.GetValues(typeof(WeaponType)).Length - 1);
         UIUpdate();
 
@@ -152,7 +142,6 @@ public class CanvasWeapon : UICanvas
         if (PlayerDataManager.Instance.playerData.golds < weaponData.weaponPrice)
         {
             Debug.Log("khong du tien");
-  
 
         }
         else
