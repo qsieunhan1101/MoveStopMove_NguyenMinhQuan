@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class JsonHandler : MonoBehaviour
+public class JsonWeaponHandler : MonoBehaviour
 {
 
     private string filePath;
 
     private void Awake()
     {
-        filePath = Application.dataPath + "/jsonTestData.json";
+        filePath = Application.dataPath + "/jsonWeaponData.json";
         //filePath = Path.Combine(Application.persistentDataPath, "jsonTestData.json");
         Debug.Log(filePath);
     }

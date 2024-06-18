@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SkinItemUI : MonoBehaviour
 {
     [Header("Button")]
-    public Button btnItem;
+    [SerializeField] private Button btnItem;
     public Button btnSelect_Equipped;
     public Button btnBuy;
 
@@ -15,72 +15,66 @@ public class SkinItemUI : MonoBehaviour
     [Header("Image")]
     [SerializeField] private Image btnIcon;
 
+    [Header("Sprite")]
+    [SerializeField] private Sprite selectedSprite;
+    public GameObject selectedIcon;
+
     [Header("Text")]
     public TextMeshProUGUI textPrice;
-    public TextMeshProUGUI textSelect_Equipped;
+    public TextMeshProUGUI textEquipped;
 
-    [Header ("Data")]
-    [SerializeField] private string itemEquippedName;
+    [Header("Data")]
     private Dictionary<string, int> itemDictionaryData = new Dictionary<string, int>();
 
+    public string itemEquippedName;
     public int idPlayerEquipmentLocation = 0;
     public EquipmentData itemEquipmentData;
     public static Action<int, string> itemOnclickEvent;
 
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
-        btnItem = this.GetComponent<Button>();
-        btnItem.onClick.AddListener(OnClickItem);
-
-       
-
-
         OnInit();
-
+        btnItem.onClick.AddListener(OnClickItem);
     }
 
 
-    void OnInit()
+    private void OnInit()
     {
         btnIcon.sprite = itemEquipmentData.equipmentIcon;
-        itemEquippedName = itemEquipmentData.equipmentName;
-        
+        //itemEquippedName = itemEquipmentData.equipmentName;
     }
 
-
-    // Update is called once per frame
-    void Update()
+    private void OnClickItem()
     {
-
-    }
-
-    void OnClickItem()
-    {
-        
-        
+        Debug.Log("OnClickItem");
         UIUpdate();
+        btnBuy.onClick.RemoveAllListeners();
+        btnSelect_Equipped.onClick.RemoveAllListeners();
+
+
         btnBuy.onClick.AddListener(OnClickBuy);
         btnSelect_Equipped.onClick.AddListener(OnClickSelect);
 
-        itemOnclickEvent(idPlayerEquipmentLocation, itemEquippedName);
+        if (itemOnclickEvent != null)
+        {
+
+            itemOnclickEvent(idPlayerEquipmentLocation, itemEquippedName);
+        }
 
     }
 
-    void OnClickSelect()
+    private void OnClickSelect()
     {
-        PlayerDataManager.Instance.playerEquipmentData.idListEquipment = idPlayerEquipmentLocation;
-        PlayerDataManager.Instance.playerEquipmentData.equipmentName = itemEquippedName;
+        PlayerEquipmentData p = PlayerDataManager.Instance.playerEquipmentData;
+        p.idListEquipment = idPlayerEquipmentLocation;
+        p.equipmentName = itemEquippedName;
         PlayerDataManager.Instance.UpdatePlayerEquipmentData();
         UIUpdate();
 
     }
 
-    void OnClickBuy()
+    private void OnClickBuy()
     {
         GetDictionaryEquipmentDataByID();
         itemDictionaryData[itemEquippedName] = 1;
@@ -91,13 +85,13 @@ public class SkinItemUI : MonoBehaviour
 
     }
 
-    void UIUpdate()
+    private void UIUpdate()
     {
-
+        Debug.Log("UIUpdate");
         GetDictionaryEquipmentDataByID();
 
         int equipmentPurchaseState = itemDictionaryData[itemEquippedName];
-        
+
         if (equipmentPurchaseState == 0)
         {
             btnSelect_Equipped.gameObject.SetActive(false);
@@ -108,18 +102,18 @@ public class SkinItemUI : MonoBehaviour
         {
             btnSelect_Equipped.gameObject.SetActive(true);
             btnBuy.gameObject.SetActive(false);
-            textSelect_Equipped.text = "Select";
+            //textSelect_Equipped.text = "Select";
 
         }
         if (PlayerDataManager.Instance.playerEquipmentData.equipmentName == itemEquippedName)
         {
-            btnSelect_Equipped.gameObject.SetActive(true);
+            btnSelect_Equipped.gameObject.SetActive(false);
             btnBuy.gameObject.SetActive(false);
-            textSelect_Equipped.text = "Equipped";
+            textEquipped.gameObject.SetActive(true);
         }
     }
 
-    void GetDictionaryEquipmentDataByID()
+    private void GetDictionaryEquipmentDataByID()
     {
         switch (idPlayerEquipmentLocation)
         {
@@ -139,4 +133,16 @@ public class SkinItemUI : MonoBehaviour
     }
 
 
+    public string GetNameItem()
+    {
+        return itemEquippedName;
+    }
+
+    public void OnClickSelf()
+    {
+        btnItem.onClick.Invoke();
+        Debug.Log("Tu bam chinh minh");
+
+
+    }
 }

@@ -27,16 +27,15 @@ public class Player : Character
     private void OnEnable()
     {
         CanvasWeapon.buttonSelectEvent += EquippedWeapon;
-        SkinItemUI.itemOnclickEvent += EquippedSkin;
-
+        SkinItemUI.itemOnclickEvent += EquippedSkinItemUI;
+        CanvasShop.exitShopEvent += EquippedSkinItemUI;
     }
 
     private void OnDisable()
     {
         CanvasWeapon.buttonSelectEvent -= EquippedWeapon;
-        SkinItemUI.itemOnclickEvent -= EquippedSkin;
-
-
+        SkinItemUI.itemOnclickEvent -= EquippedSkinItemUI;
+        CanvasShop.exitShopEvent -= EquippedSkinItemUI;
     }
     // Update is called once per frame
     void Update()
@@ -117,7 +116,7 @@ public class Player : Character
         this.weaponType = PlayerDataManager.Instance.GetWeaponState();
         EquippedWeapon(this.weaponType);
 
-        EquippedSkin(PlayerDataManager.Instance.GetEquipmentState().Item1, PlayerDataManager.Instance.GetEquipmentState().Item2);
+        EquippedSkinItemUI(PlayerDataManager.Instance.GetEquipmentState().Item1, PlayerDataManager.Instance.GetEquipmentState().Item2);
     }
     protected override void OnDespawn()
     {
@@ -130,6 +129,10 @@ public class Player : Character
         isDead = true;
         ChangeAnim(Constant.Anim_Dead);
         this.gameObject.layer = LayerMask.NameToLayer(Constant.Layer_Default);
+
+        //GameManager.Instance.Fail();
+
+
 
     }
 
@@ -206,77 +209,19 @@ public class Player : Character
     }
 
 
-    public override void EquippedWeapon(WeaponType wType)
+    public override void EquippedWeapon(WeaponType weaponType)
     {
-        base.EquippedWeapon(wType);
-        weaponType = wType;
+        base.EquippedWeapon(weaponType);
 
-
-        weaponHandPrefab = LocalDataManager.Instance.UserData.GetWeaponData(weaponType).weaponHand;
-
-        foreach (Transform child in weaponHand)
-        {
-            Destroy(child.gameObject);
-        }
-
-        Instantiate(weaponHandPrefab, weaponHand);
     }
 
-    public override void EquippedSkin(int idListEquiment, string equipmentName)
+    public override void EquippedSkinItemUI(int idListEquiment, string equipmentName)
     {
-        base.EquippedSkin(idListEquiment, equipmentName);
-
-        ResetSkin();
-
-        UserData userData = LocalDataManager.Instance.UserData;
-
-        switch (idListEquiment)
-        {
-            case 0:
-                hatPrefab = ((HatData)userData.GetEquipmentData(idListEquiment, equipmentName)).hatPrefab;
-                Instantiate(hatPrefab, hatPosition);
-                break;
-            case 1:
-                pantEquippedMaterial = ((PantData)userData.GetEquipmentData(idListEquiment, equipmentName)).pantMaterial;
-                pantMeshRenderer.material = pantEquippedMaterial;
-                break;
-            case 2:
-                shieldPrefabs = ((ShieldData)userData.GetEquipmentData(idListEquiment, equipmentName)).shieldPrefab;
-                Instantiate(shieldPrefabs, shieldPosition);
-                break;
-            case 3:
-                SkinData skinData = ((SkinData)userData.GetEquipmentData(idListEquiment, equipmentName));
-                pantEquippedMaterial = skinData.pantMaterial;
-                pantMeshRenderer.material = pantEquippedMaterial;
-                setMaterial = skinData.skinMaterial;
-                setMeshRenderer.material = setMaterial;
-                setPrefabs = skinData.skinPrefab;
-                Instantiate(setPrefabs, setPosition);
-                break;
-
-        }
-
+        base.EquippedSkinItemUI(idListEquiment, equipmentName);
 
 
     }
 
-    private void ResetSkin()
-    {
-        foreach (Transform child in hatPosition)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in shieldPosition)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in setPosition)
-        {
-            Destroy(child.gameObject);
-        }
 
-        pantMeshRenderer.material = originPantMaterial;
-        setMeshRenderer.material = originSetMaterial;
-    }
 
 }

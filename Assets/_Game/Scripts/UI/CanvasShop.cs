@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,15 +12,28 @@ public class CanvasShop : UICanvas
     [SerializeField] private Image[] TabButtons;
     [SerializeField] private Button[] Buttons;
     [SerializeField] private Sprite InactiveTabBG, ActiveTabBG;
+
+    private int idPlayerEquipmentLocation;
+    private string itemEquippedName;
+
     public Vector2 InactiveTabButtonSize, ActiveTabButtonSize;
+
+    public static Action<int, string> exitShopEvent;
+
 
     private void Awake()
     {
         btnExit.onClick.AddListener(OnClickExit);
     }
 
+    private void OnEnable()
+    {
+        TapEuippedUI();
+    }
+
     public void SwitchToTab(int tabId)
     {
+
         foreach (GameObject go in Tabs)
         {
             go.SetActive(false);
@@ -40,9 +54,22 @@ public class CanvasShop : UICanvas
         //TabButtons[tabId].rectTransform.sizeDelta = ActiveTabButtonSize;
 
     }
-    void OnClickExit()
+    private void OnClickExit()
     {
         Close(0);
         UIManager.Instance.OpenUI<CanvasMenu>();
+        PlayerEquipmentData p = PlayerDataManager.Instance.playerEquipmentData;
+        idPlayerEquipmentLocation = p.idListEquipment;
+        itemEquippedName = p.equipmentName;
+        if (exitShopEvent != null)
+        {
+            exitShopEvent(idPlayerEquipmentLocation, itemEquippedName);
+        }
+    }
+
+    private void TapEuippedUI()
+    {
+        int idTapEquipped = PlayerDataManager.Instance.playerEquipmentData.idListEquipment;
+        Buttons[idTapEquipped].onClick.Invoke();
     }
 }

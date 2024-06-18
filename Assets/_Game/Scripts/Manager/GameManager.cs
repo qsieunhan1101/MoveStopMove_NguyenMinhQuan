@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum GameState
@@ -22,7 +23,7 @@ public class GameManager : Singleton<GameManager>
     {
         ChangeState(GameState.MainMenu);
     }
-
+    
 
     public void ChangeState(GameState newState)
     {
@@ -51,11 +52,15 @@ public class GameManager : Singleton<GameManager>
     private void FailState()
     {
         Time.timeScale = 0;
+        UIManager.Instance.CloseAll();
+        UIManager.Instance.OpenUI<CanvasFail>();
     }
 
     private void VictoryState()
     {
         Time.timeScale = 0;
+        UIManager.Instance.CloseAll();
+        UIManager.Instance.OpenUI<CanvasVictory>();
     }
 
     private void PausegState()
@@ -74,15 +79,32 @@ public class GameManager : Singleton<GameManager>
 
     private void MainMenuState()
     {
-        Time.timeScale = 0;
-        UIManager.Instance.CloseAll();
+        Time.timeScale = 1;
 
+        UIManager.Instance.CloseAll();
         UIManager.Instance.OpenUI<CanvasMenu>();
         UIManager.Instance.OpenUI<CanvasGold>();
+
+        LevelManager.Instance.ReLoadLevel();
     }
 
     public GameState GetCurrentState()
     {
         return CurrentState;
+    }
+
+
+    public void Victory()
+    {
+
+        ChangeState(GameState.Victory);
+        Debug.Log("THANG------------------");
+
+    }
+
+    public void Fail()
+    {
+        ChangeState(GameState.Fail);
+        Debug.Log("THUA------------------");
     }
 }

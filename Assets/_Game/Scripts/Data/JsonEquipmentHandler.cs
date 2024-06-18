@@ -35,6 +35,7 @@ public class PlayerEquipmentData
     public DictionaryWapper<string, int> dictionartSkin;
     public int idListEquipment;
     public string equipmentName;
+    public int level;
     public PlayerEquipmentData()
     {
         dictionartHat = new DictionaryWapper<string, int>();
@@ -43,6 +44,7 @@ public class PlayerEquipmentData
         dictionartSkin = new DictionaryWapper<string, int>();
         idListEquipment = 0;
         equipmentName = "Arrow";
+        level = 0;
     }
 
     public DictionaryWapper<string, int> UpdateDictionaryWapper(int dictLocation)

@@ -4,12 +4,11 @@ using UnityEngine;
 public class Character : GameUnit
 {
     [SerializeField] protected CharacterState charState;
-
-    public LayerMask characterLayerMask;
-
     [SerializeField] protected Transform targetAttack;
-    public Transform TargetAttack => targetAttack;
+    [SerializeField] protected Collider[] enemyColliders;
     protected Vector3 bulletDirection;
+    public LayerMask characterLayerMask;
+    public Transform TargetAttack => targetAttack;
 
 
     //Weapon
@@ -17,21 +16,15 @@ public class Character : GameUnit
     [SerializeField] protected Transform bulletPoint;
     [SerializeField] protected Transform bulletPointDir;
     [SerializeField] protected float rangeAttack;
+    protected float angle;
     private float rangeAttackDefault;
     public float fireRate = 1f;
     public float nextTimeToFire = 0f;
-    protected float angle;
 
     [Header ("Weapon_Skin")]
-    [SerializeField] public WeaponType weaponType;
     [SerializeField] protected Transform weaponHand;
     [SerializeField] protected GameObject weaponHandPrefab;
-
- 
-
-    [SerializeField] protected Collider[] enemyColliders;
-
-
+    [SerializeField] public WeaponType weaponType;
 
 
     [Header ("Body_Anim")]
@@ -223,14 +216,72 @@ public class Character : GameUnit
         }
     }
 
-    public virtual void EquippedWeapon(WeaponType wType)
+    public virtual void EquippedWeapon(WeaponType weaponType)
     {
+        this.weaponType = weaponType;
+        weaponHandPrefab = LocalDataManager.Instance.UserData.GetWeaponData(this.weaponType).weaponHand;
+
+        foreach (Transform child in weaponHand)
+        {
+            Destroy(child.gameObject);
+        }
+
+        Instantiate(weaponHandPrefab, weaponHand);
+    }
+
+    public virtual void EquippedSkinItemUI(int idListEquiment, string equipmentName)
+    {
+        ResetSkin();
+        if (equipmentName == Constant.Default_EquipmentName)
+        {
+            return;
+        }
+
+        UserData userData = LocalDataManager.Instance.UserData;
+
+        switch (idListEquiment)
+        {
+            case 0:
+                hatPrefab = ((HatData)userData.GetEquipmentData(idListEquiment, equipmentName)).hatPrefab;
+                Instantiate(hatPrefab, hatPosition);
+                break;
+            case 1:
+                pantEquippedMaterial = ((PantData)userData.GetEquipmentData(idListEquiment, equipmentName)).pantMaterial;
+                pantMeshRenderer.material = pantEquippedMaterial;
+                break;
+            case 2:
+                shieldPrefabs = ((ShieldData)userData.GetEquipmentData(idListEquiment, equipmentName)).shieldPrefab;
+                Instantiate(shieldPrefabs, shieldPosition);
+                break;
+            case 3:
+                SkinData skinData = ((SkinData)userData.GetEquipmentData(idListEquiment, equipmentName));
+                pantEquippedMaterial = skinData.pantMaterial;
+                pantMeshRenderer.material = pantEquippedMaterial;
+                setMaterial = skinData.skinMaterial;
+                setMeshRenderer.material = setMaterial;
+                setPrefabs = skinData.skinPrefab;
+                Instantiate(setPrefabs, setPosition);
+                break;
+        }
 
     }
 
-    public virtual void EquippedSkin(int idListEquiment, string equipmentName)
+    protected virtual void ResetSkin()
     {
+        foreach (Transform child in hatPosition)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in shieldPosition)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in setPosition)
+        {
+            Destroy(child.gameObject);
+        }
 
+        pantMeshRenderer.material = originPantMaterial;
+        setMeshRenderer.material = originSetMaterial;
     }
-
 }

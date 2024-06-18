@@ -12,7 +12,7 @@ public class CanvasGold : UICanvas
     }
     void UIUpdate()
     {
-        int gold = PlayerDataManager.Instance.playerData.golds;
+        int gold = PlayerDataManager.Instance.playerWeaponData.golds;
         textGold.text = gold.ToString();
     }
 }

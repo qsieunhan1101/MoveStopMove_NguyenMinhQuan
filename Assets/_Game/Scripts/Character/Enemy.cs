@@ -1,20 +1,26 @@
-using System;
+
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : Character
 {
     IState currentState;
-
+    [Header ("Character_Enemy")]
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float radiusDestination = 10f;
     [SerializeField] private bool isDead;
+    [SerializeField] private Material[] enemyMaterial;
 
     private Vector3 destinationTarget;
     public Vector3 DestinationTarget => destinationTarget;
     public SpriteRenderer spriteRenderer;
 
-
+    private void Start()
+    {
+        originSetMaterial = enemyMaterial[Random.Range(0, enemyMaterial.Length)];
+        EquippedRandomWeapon();
+        EquippedRandomSkin();
+    }
 
     public bool IsDead => isDead;
 
@@ -37,6 +43,10 @@ public class Enemy : Character
         {
             GetTargetOtherCharacter();
 
+        }
+        if (GameManager.Instance.CurrentState != GameState.Gameplay)
+        {
+            StopMoving();
         }
 
 
@@ -98,7 +108,7 @@ public class Enemy : Character
 
     public Vector3 SetAgentDestination()
     {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere.normalized * radiusDestination;
+        Vector3 randomDirection = Random.insideUnitSphere.normalized * radiusDestination;
         randomDirection += transform.position;
         NavMeshHit navHit;
         bool hasHit = NavMesh.SamplePosition(randomDirection, out navHit, radiusDestination, -1);
@@ -124,12 +134,53 @@ public class Enemy : Character
         ChangeAnim(Constant.Anim_Dead);
         isDead = true;
         targetAttack = null;
+        characterScore = 0;
 
         EnemyManager.Instance.UpdateTotalEnemy();
 
-        OnDespawn();
+        Invoke(nameof(OnDespawn), 1.5f);
+        //OnDespawn();
     }
 
+    public override void EquippedWeapon(WeaponType weaponType)
+    {
+        base.EquippedWeapon(weaponType);
+    }
 
+    public override void EquippedSkinItemUI(int idListEquiment, string equipmentName)
+    {
+        base.EquippedSkinItemUI(idListEquiment, equipmentName);
+    }
 
+    private void EquippedRandomWeapon()
+    {
+        weaponType = (WeaponType)Random.Range(0, System.Enum.GetValues(typeof(WeaponType)).Length);
+        EquippedWeapon(weaponType);
+    }
+
+    private void EquippedRandomSkin()
+    {
+
+        int idListEquiment = Random.Range(0, 4);
+        string equipmentName = Constant.Default_EquipmentName;
+        UserData userData = LocalDataManager.Instance.UserData;
+        switch (idListEquiment)
+        {
+            case 0:
+                equipmentName = userData.ListHatDatas[Random.Range(0, userData.ListHatDatas.Count)].equipmentName;
+                break;
+            case 1:
+                equipmentName = userData.ListPantDatas[Random.Range(0, userData.ListPantDatas.Count)].equipmentName;
+                break;
+            case 2:
+                equipmentName = userData.ListShieldDatas[Random.Range(0, userData.ListShieldDatas.Count)].equipmentName;
+                break;
+            case 3:
+                equipmentName = userData.ListSkinDatas[Random.Range(0, userData.ListSkinDatas.Count)].equipmentName;
+                break;
+        }
+
+        EquippedSkinItemUI(idListEquiment, equipmentName);
+
+    }
 }

@@ -18,12 +18,28 @@ public class LevelManager : Singleton<LevelManager>
     private GameObject currentPlayer;
     private GameObject currentEnemy;
 
-
+    private int level;
+    public int Level
+    {
+        get { return level; }
+        set
+        {
+            if (value < 0)
+            {
+                level = value;
+            }
+            else
+            {
+                level = value;
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        LoadLevel(0);
+        level = PlayerDataManager.Instance.playerEquipmentData.level;
+
     }
 
     // Update is called once per frame
@@ -34,6 +50,11 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadLevel(int levelIndex)
     {
+        EnemyManager.Instance.ResetTotalEnemy();
+        if (levelIndex > mapLevelPrefabs.Count-1)
+        {
+            levelIndex = 0;
+        }
         DestroyLevel();
         GameObject lvParent = new GameObject("Level_Parent");
         this.mapLevelParent = lvParent.transform;
@@ -44,54 +65,33 @@ public class LevelManager : Singleton<LevelManager>
         CameraFollow mainCam = CameraFollow.Instance;
         mainCam.target = player;
         mainCam.SetUpCamera(10,5);
-
-
-
-
         EnemyManager.Instance.SpawnFristTime();
-
-      
-        
-       
+   
     }
     public void SaveLevel()
     {
-
+        PlayerDataManager.Instance.playerEquipmentData.level = this.level;
+        PlayerDataManager.Instance.UpdatePlayerEquipmentData();
     }
-    public void GetLevel()
+    public int GetLevel()
     {
-
+        int a;
+        PlayerEquipmentData p = PlayerDataManager.Instance.LoadPlayerEquipmentData() ;
+        a = p.level;
+        return a ;
     }
+
+    public void ReLoadLevel()
+    {
+        LoadLevel(GetLevel());
+    }
+    
     public void DestroyLevel()
     {
         if (this.mapLevelParent != null)
         {
-            Destroy(this.mapLevelParent);
+            Destroy(this.mapLevelParent.gameObject);
             Debug.Log("destroy level");
-        }
-    }
-
-    private void SpawnEnemy(int count, float range , Transform map)
-    {
-        
-        for (int i = 0; i< count;i++)
-        {
-            Vector3 randomPoint = Random.insideUnitSphere * range;
-            randomPoint += map.position;
-
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, range, NavMesh.AllAreas))
-            {
-                /*GameObject enmy = Instantiate(enemyPrefab, this.mapLevelParent);
-                enmy.transform.position = hit.position;*/
-
-                Enemy enemy = SimplePool.Spawn<Enemy>(PoolType.Enemy, hit.position, Quaternion.identity);
-                
-            }
-            else
-            {
-                i--;
-            }
         }
     }
 

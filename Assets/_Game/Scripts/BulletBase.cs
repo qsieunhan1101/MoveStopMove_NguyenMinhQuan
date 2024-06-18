@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class BulletBase : GameUnit
 {
-
-    public enum BulletType
-    {
-        Turning = 0,
-        NoTurning = 1,
-    }
-
     [SerializeField] private BulletType bulletType = BulletType.Turning;
     [SerializeField] private Character characterOwner;
     [SerializeField] private Transform bodyAnim;
@@ -57,19 +50,9 @@ public class BulletBase : GameUnit
 
             if (other.transform != characterOwner.transform)
             {
-                if (other.CompareTag(Constant.Tag_Player))
-                {
-                    Player player = other.GetComponent<Player>();
-                    player.Death();
-                    characterOwner.SetScore();
-                }
-                if (other.CompareTag(Constant.Tag_Enemy))
-                {
-                    Enemy enemy = other.GetComponent<Enemy>();
-                    enemy.Death();
-                    characterOwner.SetScore();
-                }
-
+                    Character vicmtim = other.GetComponent<Character>();
+                    vicmtim.Death();
+                    characterOwner.SetScore();   
             }
         }
     }

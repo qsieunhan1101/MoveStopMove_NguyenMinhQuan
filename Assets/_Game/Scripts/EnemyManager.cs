@@ -6,19 +6,28 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     [SerializeField] private List<Enemy> enemies = new List<Enemy>();
     [SerializeField] private List<Vector3> listSpawnPos;
-    [SerializeField] private int totalEnemy = 30;
+    [SerializeField] private int totalEnemyDefault;
+    [SerializeField] private int maxEnemy = 5;
 
-
-    private int maxEnemy = 10;
+    private int totalEnemy;
     public int TotalEnemy => totalEnemy;
     public List<Enemy> Enemies => enemies;
     public static Action totalEnemyUpdateEvent;
 
-
+    private void Start()
+    {
+        ResetTotalEnemy();
+    }
 
     void Update()
     {
-        CheckAndSpawnEnemy();
+
+        if (GameManager.Instance.CurrentState == GameState.Gameplay)
+        {
+            CheckTotalEnemy();
+            CheckAndSpawnEnemy();
+
+        }
     }
 
     public void CheckAndSpawnEnemy()
@@ -43,7 +52,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void SpawnFristTime()
     {
-        for (int i = 0; i < listSpawnPos.Count - 1; i++)
+        for (int i = 0; i < maxEnemy; i++)
         {
             Enemy enemy = SimplePool.Spawn<Enemy>(PoolType.Enemy, listSpawnPos[i], Quaternion.identity);
             enemies.Add(enemy);
@@ -55,6 +64,18 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         totalEnemy--;
         totalEnemyUpdateEvent?.Invoke();
+    }
+
+    private void CheckTotalEnemy()
+    {
+        if (totalEnemy < 1 && GameManager.Instance.CurrentState != GameState.Victory)
+        {
+            GameManager.Instance.Victory();
+        }
+    }
+    public void ResetTotalEnemy()
+    {
+        totalEnemy = totalEnemyDefault;
     }
 
 }

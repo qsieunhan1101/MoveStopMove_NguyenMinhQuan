@@ -51,6 +51,10 @@ public class CanvasWeapon : UICanvas
         OnInit();
 
     }
+    private void OnEnable()
+    {
+        WeaponEquippedUI();
+    }
 
     void OnInit()
     {
@@ -75,20 +79,20 @@ public class CanvasWeapon : UICanvas
     {
         GetWeaponData();
 
-        if (PlayerDataManager.Instance.playerData.weaponPurchaseState[this.weaponType] == 0)
+        if (PlayerDataManager.Instance.playerWeaponData.weaponPurchaseState[this.weaponType] == 0)
         {
             btnSelect.gameObject.SetActive(false);
             btnBuy.gameObject.SetActive(true);
 
         }
-        if (PlayerDataManager.Instance.playerData.weaponPurchaseState[this.weaponType] == 1)
+        if (PlayerDataManager.Instance.playerWeaponData.weaponPurchaseState[this.weaponType] == 1)
         {
             btnSelect.gameObject.SetActive(true);
             btnSelect.image.sprite = btnSelectImg;
             btnSelectText.text = "Select";
             btnBuy.gameObject.SetActive(false);
         }
-        if (PlayerDataManager.Instance.playerData.weaponPurchaseState[this.weaponType] == 2)
+        if (PlayerDataManager.Instance.playerWeaponData.weaponPurchaseState[this.weaponType] == 2)
         {
             btnSelect.gameObject.SetActive(true);
             btnSelect.image.sprite = btnEquippedImg;
@@ -120,7 +124,7 @@ public class CanvasWeapon : UICanvas
 
             buttonSelectEvent(weaponType);
         }
-        PlayerData p = PlayerDataManager.Instance.playerData;
+        PlayerWeaponData p = PlayerDataManager.Instance.playerWeaponData;
         p.weaponPurchaseState[this.weaponType] = 2;
 
         for (int i=0; i< p.weaponPurchaseState.Count-1;i++)
@@ -139,7 +143,7 @@ public class CanvasWeapon : UICanvas
 
     private void OnClickBuy()
     {
-        if (PlayerDataManager.Instance.playerData.golds < weaponData.weaponPrice)
+        if (PlayerDataManager.Instance.playerWeaponData.golds < weaponData.weaponPrice)
         {
             Debug.Log("khong du tien");
 
@@ -148,7 +152,7 @@ public class CanvasWeapon : UICanvas
         {
             Debug.Log("da mua");
  
-            PlayerData p = PlayerDataManager.Instance.playerData;
+            PlayerWeaponData p = PlayerDataManager.Instance.playerWeaponData;
 
             p.golds = p.golds - weaponData.weaponPrice;
             p.weaponPurchaseState[this.weaponType] = 1;
@@ -160,6 +164,11 @@ public class CanvasWeapon : UICanvas
         }
     }
 
+    private void WeaponEquippedUI()
+    {
+        weaponType = PlayerDataManager.Instance.GetWeaponState();
+        UIUpdate();
+    }
 
 
 }

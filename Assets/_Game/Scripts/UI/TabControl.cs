@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,20 +8,16 @@ using UnityEngine.UI;
 
 public class TabControl : MonoBehaviour
 {
-    public enum TabType
-    {
-        TabHat = 0,
-        TabPant = 1,
-        TapShield = 2,
-        TapSkin = 3,
-    }
+
     [SerializeField] private TabType tabType;
 
     [Header("Button")]
-    [SerializeField] private Button btnSelect_Equipped;
+    [SerializeField] private Button btnSelect;
     [SerializeField] private Button btnBuy;
 
-    [Header ("ButtonItem")]
+    [SerializeField] private SkinItemUI btnItemSelected;
+
+    [Header("ButtonItem")]
     [SerializeField] private GameObject buttonPrefabs;
     [SerializeField] private Transform buttonParent;
 
@@ -35,19 +32,26 @@ public class TabControl : MonoBehaviour
 
     [SerializeField] private List<EquipmentData> equipments;
 
+    [SerializeField] private List<SkinItemUI> buttonChilds;
+
 
     // Start is called before the first frame update
     void Start()
     {
         GenerateItem();
 
+        Debug.Log(buttonChilds.Count);
+
+
+        StartCoroutine(CallFunctionAfterFrames(1, ButtonChildEquipped));
 
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+    private void OnEnable()
     {
-        
+        ButtonChildEquipped();
     }
 
 
@@ -61,16 +65,19 @@ public class TabControl : MonoBehaviour
         for (int i = 0; i < equipments.Count; i++)
         {
             GameObject btn = Instantiate(buttonPrefabs, buttonParent);
+            Button button = btn.GetComponent<Button>();
             SkinItemUI itemData = btn.GetComponent<SkinItemUI>();
             //set data cho button con
             itemData.btnBuy = this.btnBuy;
-            itemData.btnSelect_Equipped = this.btnSelect_Equipped;
+            itemData.btnSelect_Equipped = this.btnSelect;
             itemData.textPrice = this.textPrice;
-            itemData.textSelect_Equipped = this.textSelect_Equipped;
-
+            itemData.textEquipped = this.textSelect_Equipped;
+            itemData.itemEquippedName = this.equipments[i].equipmentName;
             itemData.itemEquipmentData = this.equipments[i];
 
             itemData.idPlayerEquipmentLocation = this.idPlayerEquipmentLocation;
+            buttonChilds.Add(itemData);
+            button.onClick.AddListener(() => ItemSelectedUI(itemData));
         }
     }
 
@@ -98,4 +105,50 @@ public class TabControl : MonoBehaviour
             idPlayerEquipmentLocation = 3;
         }
     }
+
+
+    private void ButtonChildEquipped()
+    {
+        CheckTabType();
+        string equipped = PlayerDataManager.Instance.playerEquipmentData.equipmentName;
+
+        SkinItemUI btn;
+        for (int i = 0; i < buttonChilds.Count - 1; i++)
+        {
+            btn = buttonChilds[i];
+            if (btn.GetNameItem() == equipped)
+            {
+
+                btn.OnClickSelf();
+                return;
+            }
+            else
+            {
+                buttonChilds[0].OnClickSelf();
+            }
+        }
+    }
+
+
+    private void ItemSelectedUI(SkinItemUI itemUI)
+    {
+        if (btnItemSelected != null)
+        {
+            btnItemSelected.selectedIcon.SetActive(false);
+        }
+
+        btnItemSelected = itemUI;
+
+        btnItemSelected.selectedIcon.SetActive(true);
+    }
+
+    private IEnumerator CallFunctionAfterFrames(int frames, Action functionToCall)
+    {
+        for (int i = 0; i < frames; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        functionToCall?.Invoke();
+    }
+
 }

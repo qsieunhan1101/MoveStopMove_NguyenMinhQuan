@@ -15,6 +15,13 @@ public class CanvasGamePlay : UICanvas
         btnPause.onClick.AddListener(OnClickPause);
     }
 
+    public override void SetUp()
+    {
+        base.SetUp();
+        UIUpdate();
+
+    }
+
     private void OnEnable()
     {
         EnemyManager.totalEnemyUpdateEvent += UIUpdate;
