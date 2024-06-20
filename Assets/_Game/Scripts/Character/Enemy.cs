@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,8 +9,8 @@ public class Enemy : Character
     [Header ("Character_Enemy")]
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float radiusDestination = 10f;
-    [SerializeField] private bool isDead;
     [SerializeField] private Material[] enemyMaterial;
+    private Vector3 defaultEnemyPosition = new Vector3(-44, 0.5f, 43);
 
     private Vector3 destinationTarget;
     public Vector3 DestinationTarget => destinationTarget;
@@ -20,9 +21,9 @@ public class Enemy : Character
         originSetMaterial = enemyMaterial[Random.Range(0, enemyMaterial.Length)];
         EquippedRandomWeapon();
         EquippedRandomSkin();
+        RandomName();
     }
 
-    public bool IsDead => isDead;
 
     private void OnEnable()
     {
@@ -60,14 +61,14 @@ public class Enemy : Character
         isDead = false;
         ChangeState(new IdleState());
         this.gameObject.layer = LayerMask.NameToLayer(Constant.Layer_Character);
-
+        characterScore = 0;
     }
 
     protected override void OnDespawn()
     {
         base.OnDespawn();
         SimplePool.Despawn(this);
-        transform.position = new Vector3(-44, 0.5f, 43);
+        transform.position = defaultEnemyPosition;
         enemyColliders = new Collider[10];
     }
 
@@ -182,5 +183,16 @@ public class Enemy : Character
 
         EquippedSkinItemUI(idListEquiment, equipmentName);
 
+    }
+
+    public override void SetScore()
+    {
+        base.SetScore();
+    }
+
+    private void RandomName()
+    {
+        List<string> listName = LocalDataManager.Instance.UserData.ListNames;
+        characterName = listName[Random.Range(0, listName.Count)];
     }
 }

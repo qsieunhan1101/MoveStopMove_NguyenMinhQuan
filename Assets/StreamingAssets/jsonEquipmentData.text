@@ -1,0 +1,81 @@
+{
+    "dictionartHat": {
+        "keys": [
+            "Arrow",
+            "Cowboy",
+            "Crown",
+            "Ear",
+            "Hat",
+            "Hat_Cap",
+            "Hat_Yellow",
+            "Head_Phone",
+            "Horn",
+            "Rau"
+        ],
+        "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ]
+    },
+    "dictionartPant": {
+        "keys": [
+            "Batman",
+            "Chambi",
+            "Comy",
+            "Dabao",
+            "Onion",
+            "Pokemon",
+            "Rainbow",
+            "Skull",
+            "Vantim"
+        ],
+        "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ]
+    },
+    "dictionartShield": {
+        "keys": [
+            "America",
+            "Wakanda"
+        ],
+        "values": [
+            0,
+            0
+        ]
+    },
+    "dictionartSkin": {
+        "keys": [
+            "Angel_Set",
+            "DeadPool_Set",
+            "Devil_Set",
+            "Thor_Set",
+            "Witch_Set"
+        ],
+        "values": [
+            0,
+            0,
+            0,
+            0,
+            0
+        ]
+    },
+    "idListEquipment": 0,
+    "equipmentName": "None",
+    "level": 0
+}

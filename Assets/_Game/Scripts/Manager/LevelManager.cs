@@ -51,6 +51,10 @@ public class LevelManager : Singleton<LevelManager>
     public void LoadLevel(int levelIndex)
     {
         EnemyManager.Instance.ResetTotalEnemy();
+        EnemyManager.Instance.DespawnAllEnemy();
+        EnemyManager.Instance.ResetListEnableEnemy();
+
+
         if (levelIndex > mapLevelPrefabs.Count-1)
         {
             levelIndex = 0;

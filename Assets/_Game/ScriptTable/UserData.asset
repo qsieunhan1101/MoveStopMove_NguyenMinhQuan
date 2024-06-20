@@ -197,3 +197,34 @@ MonoBehaviour:
     skinMaterial: {fileID: 2100000, guid: b0d3dcb712d18624f85e6317869aa85b, type: 2}
     pantMaterial: {fileID: 2100000, guid: d69fc6c4e6a4bfa48880d809223ae9d1, type: 2}
     skinPrefab: {fileID: 6081103602962161919, guid: 9ba7949679fc59444a75fed46c03acdd, type: 3}
+  listNames:
+  - Darren
+  - Bailey
+  - Elmer
+  - Cecil
+  - Barry
+  - Ormond
+  - Rudyard
+  - Alan
+  - Montgomery
+  - Norman
+  - Den
+  - Sage
+  - Ivor
+  - Sam
+  - Jeffry
+  - Beauregard
+  - Kev
+  - Drogo
+  - Mikey
+  - Collyn
+  - Braeden
+  - Waverly
+  - Damian
+  - Tony
+  - Houston
+  - Rod
+  - Jonah
+  - Kory
+  - Everette
+  - Fenton

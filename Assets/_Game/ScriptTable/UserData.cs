@@ -31,6 +31,9 @@ public class UserData : ScriptableObject
     [SerializeField] private List<SkinData> listSkinDatas;
     public List<SkinData> ListSkinDatas => listSkinDatas;
 
+    [SerializeField] private List<string> listNames;
+    public List<string> ListNames => listNames;
+
     //Weapon
     public WeaponData GetWeaponData(WeaponType weaponType)
     {

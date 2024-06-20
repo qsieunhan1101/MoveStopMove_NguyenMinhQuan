@@ -19,6 +19,24 @@ public class Target : MonoBehaviour
     [SerializeField] private bool needDistanceText = true;
 
     /// <summary>
+    /// Extended
+    /// </summary>
+    [SerializeField] private Character character;
+    public int CharacterScore
+    {
+        get { return character.CharacterScore; }
+    }
+    public string CharacterName
+    {
+        get { return character.CharacterName; }
+    }
+    public Material CharacterColor
+    {
+        get { return character.CharacterMaterial; }
+    }
+
+
+    /// <summary>
     /// Please do not assign its value yourself without understanding its use.
     /// A reference to the target's indicator, 
     /// its value is assigned at runtime by the offscreen indicator script.

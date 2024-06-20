@@ -29,7 +29,7 @@ public class IdleState : IState
             enemy.ChangeState(new MoveState());
         }
 
-        if (enemy.IsHaveTargetAttack() == true)
+        if (enemy.IsHaveTargetAttack() == true && GameManager.Instance.CurrentState == GameState.Gameplay)
         {
             enemy.ChangeState(new AttackState());
         }

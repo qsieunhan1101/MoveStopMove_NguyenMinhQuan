@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4422945241060420942}
+  - component: {fileID: 8032498346222536401}
   - component: {fileID: 8616732601089453851}
   - component: {fileID: 147316670003872233}
   - component: {fileID: 5193551483674432416}
@@ -39,6 +40,19 @@ RectTransform:
   m_AnchoredPosition: {x: -131, y: 1466}
   m_SizeDelta: {x: 206.9, y: 126.5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8032498346222536401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10343732316678212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444fd1ab69b7641469774862047e30c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnOnclick: {fileID: 5193551483674432416}
 --- !u!222 &8616732601089453851
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -340,7 +354,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -488,7 +502,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -1263,7 +1277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1815842952758790241
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1634,7 +1648,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -2201,7 +2215,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -2692,7 +2706,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -3098,7 +3112,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -3246,7 +3260,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -3694,7 +3708,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -3842,7 +3856,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -3990,7 +4004,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -4679,7 +4693,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -4993,7 +5007,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -5141,7 +5155,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -5736,7 +5750,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -6293,7 +6307,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -6846,7 +6860,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -6994,7 +7008,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -7823,7 +7837,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -7971,7 +7985,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -8119,7 +8133,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -8530,7 +8544,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -8678,7 +8692,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -8826,7 +8840,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -9483,7 +9497,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -9765,7 +9779,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -9989,7 +10003,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -10137,7 +10151,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -10376,7 +10390,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -10801,7 +10815,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -11174,7 +11188,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -11280,7 +11294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4529318730328033491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11848,7 +11862,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:
@@ -12424,7 +12438,7 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 0}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:

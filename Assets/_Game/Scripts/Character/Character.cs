@@ -6,6 +6,9 @@ public class Character : GameUnit
     [SerializeField] protected CharacterState charState;
     [SerializeField] protected Transform targetAttack;
     [SerializeField] protected Collider[] enemyColliders;
+    [SerializeField] protected bool isDead;
+    public bool IsDead => isDead;
+
     protected Vector3 bulletDirection;
     public LayerMask characterLayerMask;
     public Transform TargetAttack => targetAttack;
@@ -30,14 +33,23 @@ public class Character : GameUnit
     [Header ("Body_Anim")]
     [SerializeField] protected Animator anim;
     [SerializeField] protected string currentAnimName;
-    [SerializeField] public Transform bodyTransform;
     protected Vector3 originalScale;
+    protected float delayAnimAttack = 0.5f;
+    public Transform bodyTransform;
 
     //Text Name, Score
     [Header ("Character_UI")]
-    [SerializeField] protected TextMeshPro characterTextName;
-    [SerializeField] protected TextMeshPro characterTextScore;
-    public int characterScore = 0;
+    
+    [SerializeField] protected int characterScore = 0; 
+    protected string characterName;
+    public int CharacterScore
+    {
+        get { return characterScore; }
+    }
+    public string CharacterName
+    {
+        get { return characterName; }
+    }
 
     //pool
     [Header ("Pool")]
@@ -65,7 +77,10 @@ public class Character : GameUnit
     [SerializeField] protected GameObject setPrefabs;
     [SerializeField] protected Transform setPosition;
 
-
+    public Material CharacterMaterial
+    {
+        get {return setMeshRenderer.material; }
+    }
 
     private bool isMaxSize = false;
 
@@ -95,7 +110,6 @@ public class Character : GameUnit
     }
     public virtual void SpawnWeapon()
     {
-
         BulletBase bb = SimplePool.Spawn<BulletBase>((PoolType)weaponType, bulletPoint.position, bulletPoint.rotation);
         bb.SetCharacterOwner(this);
 
@@ -115,14 +129,11 @@ public class Character : GameUnit
     {
 
         ChangeAnim(Constant.Anim_Attack);
-        Invoke(nameof(SpawnWeapon), 0.5f);
+        Invoke(nameof(SpawnWeapon), delayAnimAttack);
 
     }
 
-    void Wait()
-    {
 
-    }
 
     public virtual void Death()/////////////////
     {
@@ -130,33 +141,37 @@ public class Character : GameUnit
     }
     protected virtual void GetTargetOtherCharacter()
     {
-       
-        int numberHitEnemyCatch = Physics.OverlapSphereNonAlloc(this.transform.position, rangeAttack, enemyColliders, characterLayerMask);
-        float closestDistance = Mathf.Infinity;
-
-        Transform lastTarget;
-
-        for (int i = 0; i < numberHitEnemyCatch; i++)
+        if (GameManager.Instance.CurrentState == GameState.Gameplay)
         {
+            int numberHitEnemyCatch = Physics.OverlapSphereNonAlloc(this.transform.position, rangeAttack, enemyColliders, characterLayerMask);
+            float closestDistance = Mathf.Infinity;
 
-            float distance = Vector3.Distance(enemyColliders[i].transform.position, this.transform.position);
-            if (distance < closestDistance && enemyColliders[i].transform != this.transform)
+            Transform lastTarget;
+
+            for (int i = 0; i < numberHitEnemyCatch; i++)
             {
-                if (targetAttack != null && this is Player)
+
+                float distance = Vector3.Distance(enemyColliders[i].transform.position, this.transform.position);
+                if (distance < closestDistance && enemyColliders[i].transform != this.transform)
                 {
-                    lastTarget = targetAttack;
-                    lastTarget.GetComponent<Enemy>().spriteRenderer.enabled = false;
+                    if (targetAttack != null && this is Player)
+                    {
+                        lastTarget = targetAttack;
+                        lastTarget.GetComponent<Enemy>().spriteRenderer.enabled = false;
+
+                    }
+                    targetAttack = enemyColliders[i].transform;
+                    closestDistance = distance;
 
                 }
-                targetAttack = enemyColliders[i].transform;
-                closestDistance = distance;
-
-            }
-            if (numberHitEnemyCatch == 1)
-            {
-                targetAttack = null;
+                if (numberHitEnemyCatch == 1)
+                {
+                    targetAttack = null;
+                }
             }
         }
+
+        
 
     }
 
@@ -186,11 +201,14 @@ public class Character : GameUnit
     public virtual void SetScore()
     {
         characterScore++;
-        characterTextScore.text = characterScore.ToString();
-        //UpdateSize(characterScore);
+        UpdateSize(characterScore);
     }
     public virtual void UpdateSize(int scorePoint)
     {
+        if (isMaxSize)
+        {
+            return;
+        }
         if (scorePoint >= 2 && scorePoint < 5)
         {
             transform.localScale = originalScale * 1.05f;
@@ -213,6 +231,15 @@ public class Character : GameUnit
             transform.localScale = originalScale * 1.2f;
             rangeAttack = rangeAttackDefault * 1.2f;
             isMaxSize = true;
+        }
+    }
+
+    public void ResetSize()
+    {
+        if (isDead == true)
+        {
+
+            isMaxSize = false;
         }
     }
 

@@ -32,3 +32,11 @@ public enum TabType
 }
 
 
+public enum SoundType
+{
+    DeadSound_1 = 13,
+    DeadSound_2 = 14,
+    WeaponThrowSound = 15,
+    BackgroundSound = 16,
+    ButtonSound = 17,
+}

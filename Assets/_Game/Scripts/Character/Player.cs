@@ -6,11 +6,10 @@ public class Player : Character
     [SerializeField] private Transform lastTargetAttack;
     [SerializeField] private float speed;
     [SerializeField] private bool isMoving;
-    [SerializeField] private bool isDead;
     private Vector3 startTouch, currentTouch;
     private Vector3 moveDirection;
     private Vector3 rotationDirection;
-    public bool IsDead => isDead;
+
 
 
 
@@ -22,6 +21,8 @@ public class Player : Character
 
         OnInit();
 
+        characterName = "You";
+
         //ChangeState(new IdleState(), this);
     }
     private void OnEnable()
@@ -29,6 +30,8 @@ public class Player : Character
         CanvasWeapon.buttonSelectEvent += EquippedWeapon;
         SkinItemUI.itemOnclickEvent += EquippedSkinItemUI;
         CanvasShop.exitShopEvent += EquippedSkinItemUI;
+        CanvasVictory.victoryEvent += UpdateGold;
+        CanvasFail.failEvent += UpdateGold;
     }
 
     private void OnDisable()
@@ -36,6 +39,8 @@ public class Player : Character
         CanvasWeapon.buttonSelectEvent -= EquippedWeapon;
         SkinItemUI.itemOnclickEvent -= EquippedSkinItemUI;
         CanvasShop.exitShopEvent -= EquippedSkinItemUI;
+        CanvasVictory.victoryEvent -= UpdateGold;
+        CanvasFail.failEvent -= UpdateGold;
     }
     // Update is called once per frame
     void Update()
@@ -130,9 +135,9 @@ public class Player : Character
         ChangeAnim(Constant.Anim_Dead);
         this.gameObject.layer = LayerMask.NameToLayer(Constant.Layer_Default);
 
-        //GameManager.Instance.Fail();
+        GameManager.Instance.Fail();
 
-
+        SoundManager.Instance.SpawnAndPlaySound(SoundType.DeadSound_1);
 
     }
 
@@ -187,6 +192,8 @@ public class Player : Character
     {
         base.SpawnWeapon();
 
+        SoundManager.Instance.SpawnAndPlaySound(SoundType.WeaponThrowSound);
+
     }
     protected override void GetTargetOtherCharacter()
     {
@@ -222,6 +229,14 @@ public class Player : Character
 
     }
 
+
+    private void UpdateGold()
+    {
+        int golds = characterScore;
+        PlayerDataManager.Instance.playerWeaponData.golds += golds;
+        PlayerDataManager.Instance.UpdateDataPlayer();
+        Debug.Log(characterScore);
+    }
 
 
 }

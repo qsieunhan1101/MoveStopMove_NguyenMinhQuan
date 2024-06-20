@@ -11,6 +11,13 @@ public class BulletBase : GameUnit
     private void OnEnable()
     {
         Invoke(nameof(OnDespawm), 2);
+        GameManager.changeGameStateEvent += OnDespawm;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.changeGameStateEvent -= OnDespawm;
+
     }
 
     // Update is called once per frame
@@ -50,9 +57,15 @@ public class BulletBase : GameUnit
 
             if (other.transform != characterOwner.transform)
             {
-                    Character vicmtim = other.GetComponent<Character>();
-                    vicmtim.Death();
-                    characterOwner.SetScore();   
+                Character vicmtim = other.GetComponent<Character>();
+                vicmtim.Death();
+                characterOwner.SetScore();
+
+                if (characterOwner is Player)
+                {
+                    SoundManager.Instance.SpawnAndPlaySound(SoundType.DeadSound_2);
+                }
+
             }
         }
     }

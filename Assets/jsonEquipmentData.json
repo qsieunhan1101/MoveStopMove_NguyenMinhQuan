@@ -13,16 +13,16 @@
             "Rau"
         ],
         "values": [
-            1,
-            1,
-            1,
             0,
             0,
-            1,
-            1,
-            1,
-            1,
-            1
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
         ]
     },
     "dictionartPant": {
@@ -39,7 +39,7 @@
         ],
         "values": [
             0,
-            1,
+            0,
             0,
             0,
             0,
@@ -55,7 +55,7 @@
             "Wakanda"
         ],
         "values": [
-            1,
+            0,
             0
         ]
     },
@@ -76,6 +76,6 @@
         ]
     },
     "idListEquipment": 0,
-    "equipmentName": "Cowboy",
-    "level": 1
+    "equipmentName": "None",
+    "level": 0
 }

@@ -1,0 +1,29 @@
+{
+    "keys": [
+        "Hammer",
+        "Lolipop",
+        "Knife",
+        "CandyCane",
+        "Bomerang",
+        "SwirlyPop",
+        "Axe",
+        "IceScream",
+        "BattleAxe",
+        "Arrow",
+        "Uzi"
+    ],
+    "values": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "golds": 10000
+}

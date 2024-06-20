@@ -3,13 +3,17 @@ using UnityEngine;
 using System.IO;
 
 
-
 public class JsonEquipmentHandler : MonoBehaviour
 {
     private string filePath;
     private void Awake()
     {
         filePath = Application.dataPath + "/jsonEquipmentData.json";
+        //filePath = Application.persistentDataPath + "/jsonEquipmentData.json";
+
+        //filePath = "Assets/Resources/jsonEquipmentData.json";
+        //filePath = "Assets/Resources/jsonEquipmentData.text";
+        Debug.Log(filePath);
     }
 
     public void SaveDataEquipment(PlayerEquipmentData playerEquipment)

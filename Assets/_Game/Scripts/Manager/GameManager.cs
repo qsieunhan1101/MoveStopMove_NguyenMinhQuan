@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using UnityEngine;
 
 public enum GameState
@@ -11,9 +11,9 @@ public enum GameState
 }
 public class GameManager : Singleton<GameManager>
 {
-
-
     [SerializeField] private GameState currentState;
+
+    public static Action changeGameStateEvent;
     public GameState CurrentState
     {
         get { return currentState; }
@@ -22,8 +22,11 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         ChangeState(GameState.MainMenu);
+        
+        SoundManager.Instance.SpawnAndPlaySound(SoundType.BackgroundSound);
+
     }
-    
+
 
     public void ChangeState(GameState newState)
     {
@@ -75,11 +78,14 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 1;
         UIManager.Instance.CloseAll();
         UIManager.Instance.OpenUI<CanvasGamePlay>();
+        UIManager.Instance.OpenUI<CanvasIndigator>();
     }
 
     private void MainMenuState()
     {
         Time.timeScale = 1;
+        changeGameStateEvent?.Invoke();
+        UIManager.Instance.OpenUI<CanvasIndigator>();
 
         UIManager.Instance.CloseAll();
         UIManager.Instance.OpenUI<CanvasMenu>();

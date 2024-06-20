@@ -203,16 +203,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5b42825360a5149a588545d59c437e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonClickSound: {fileID: 0}
   btnItem: {fileID: 6990340007134589317}
   btnSelect_Equipped: {fileID: 0}
   btnBuy: {fileID: 0}
-  selectedButton: {fileID: 0}
   btnIcon: {fileID: 812344861609461156}
-  btnSelected: {fileID: 0}
   selectedSprite: {fileID: 0}
   selectedIcon: {fileID: 1925472728925872422}
   textPrice: {fileID: 0}
-  textSelect_Equipped: {fileID: 0}
+  textEquipped: {fileID: 0}
   itemEquippedName: 
   idPlayerEquipmentLocation: 0
   itemEquipmentData:

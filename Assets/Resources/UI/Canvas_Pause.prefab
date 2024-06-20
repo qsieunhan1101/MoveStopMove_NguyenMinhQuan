@@ -144,7 +144,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &1497329773938034981
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,6 +440,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8827544451168544260}
+  - component: {fileID: 8528790727834023563}
   - component: {fileID: 2645594678932643200}
   - component: {fileID: 495424248039665764}
   - component: {fileID: 1296392591136109587}
@@ -470,6 +471,19 @@ RectTransform:
   m_AnchoredPosition: {x: -225, y: 168}
   m_SizeDelta: {x: 380, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8528790727834023563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2584710032278259905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444fd1ab69b7641469774862047e30c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnOnclick: {fileID: 1296392591136109587}
 --- !u!222 &2645594678932643200
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -791,6 +805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3101890783253743334}
+  - component: {fileID: 810787460495295979}
   - component: {fileID: 8526092641066755735}
   - component: {fileID: 3608743732539811612}
   - component: {fileID: 7485538432248157310}
@@ -821,6 +836,19 @@ RectTransform:
   m_AnchoredPosition: {x: 225, y: 168}
   m_SizeDelta: {x: 380, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &810787460495295979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5621736728669614883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444fd1ab69b7641469774862047e30c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnOnclick: {fileID: 7485538432248157310}
 --- !u!222 &8526092641066755735
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1047,7 +1075,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &5910278798344372507
 GameObject:
   m_ObjectHideFlags: 0

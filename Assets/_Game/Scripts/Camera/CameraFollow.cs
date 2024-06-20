@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : Singleton<CameraFollow>
@@ -16,7 +14,7 @@ public class CameraFollow : Singleton<CameraFollow>
     }
 
     // Update is called once per frame
-    private void LateUpdate()
+    private void Update()
     {
         if (target != null)
         {
@@ -37,9 +35,13 @@ public class CameraFollow : Singleton<CameraFollow>
 
     public void SetUpCamera(float distanceFormTager, float heightAboveTager)
     {
-        Vector3 newPosition = target.transform.position - target.transform.forward * distanceFormTager;
-        newPosition.y = target.transform.position.y + heightAboveTager;
-        transform.position = newPosition;
-        offset = transform.position - target.transform.position;
+        if (target != null)
+        {
+
+            Vector3 newPosition = target.transform.position - target.transform.forward * distanceFormTager;
+            newPosition.y = target.transform.position.y + heightAboveTager;
+            transform.position = newPosition;
+            offset = transform.position - target.transform.position;
+        }
     }
 }

@@ -25,11 +25,12 @@ public class SkinItemUI : MonoBehaviour
 
     [Header("Data")]
     private Dictionary<string, int> itemDictionaryData = new Dictionary<string, int>();
-
     public string itemEquippedName;
     public int idPlayerEquipmentLocation = 0;
     public EquipmentData itemEquipmentData;
     public static Action<int, string> itemOnclickEvent;
+
+    public static Action buttonBuyEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,7 @@ public class SkinItemUI : MonoBehaviour
         btnBuy.onClick.RemoveAllListeners();
         btnSelect_Equipped.onClick.RemoveAllListeners();
 
+        SoundManager.Instance.SpawnAndPlaySound(SoundType.ButtonSound);
 
         btnBuy.onClick.AddListener(OnClickBuy);
         btnSelect_Equipped.onClick.AddListener(OnClickSelect);
@@ -81,8 +83,13 @@ public class SkinItemUI : MonoBehaviour
         PlayerDataManager.Instance.playerEquipmentData.UpdateDictionaryWapper(idPlayerEquipmentLocation).FromDictionary(itemDictionaryData);
         PlayerDataManager.Instance.UpdatePlayerEquipmentData();
         UIUpdate();
+        //
 
+        PlayerWeaponData p = PlayerDataManager.Instance.playerWeaponData;
+        p.golds = p.golds - itemEquipmentData.equipmentPrice;
+        PlayerDataManager.Instance.UpdateDataPlayer();
 
+        buttonBuyEvent?.Invoke();
     }
 
     private void UIUpdate()

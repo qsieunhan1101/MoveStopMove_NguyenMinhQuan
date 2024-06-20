@@ -32,6 +32,7 @@ public class CanvasWeapon : UICanvas
 
     
     public static Action<WeaponType> buttonSelectEvent;
+    public static Action buttonBuyEvent;
 
 
 
@@ -160,7 +161,7 @@ public class CanvasWeapon : UICanvas
             PlayerDataManager.Instance.UpdateDataPlayer();
 
             UIUpdate();
-
+            buttonBuyEvent?.Invoke();
         }
     }
 

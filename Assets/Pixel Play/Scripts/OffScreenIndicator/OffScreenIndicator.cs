@@ -47,6 +47,8 @@ public class OffScreenIndicator : MonoBehaviour
             float distanceFromCamera = target.NeedDistanceText ? target.GetDistanceFromCamera(mainCamera.transform.position) : float.MinValue;// Gets the target distance from the camera.
             Indicator indicator = null;
 
+            
+
             if(target.NeedBoxIndicator && isTargetVisible)
             {
                 screenPosition.z = 0;
@@ -61,10 +63,20 @@ public class OffScreenIndicator : MonoBehaviour
             }
             if(indicator)
             {
-                indicator.SetImageColor(target.TargetColor);// Sets the image color of the indicator.
-                indicator.SetDistanceText(distanceFromCamera); //Set the distance text for the indicator.
+                //indicator.SetImageColor(target.TargetColor);// Sets the image color of the indicator.
+                //indicator.SetDistanceText(distanceFromCamera); //Set the distance text for the indicator.
                 indicator.transform.position = screenPosition; //Sets the position of the indicator on the screen.
                 indicator.SetTextRotation(Quaternion.identity); // Sets the rotation of the distance text of the indicator.
+
+
+
+
+                //Extend
+                indicator.SetDistanceText(target.CharacterScore);
+                indicator.SetImageColor(target.CharacterColor.color);
+                indicator.SetName(target.CharacterName);
+                
+
             }
         }
     }

@@ -125,6 +125,7 @@ public class TabControl : MonoBehaviour
             else
             {
                 buttonChilds[0].OnClickSelf();
+                break;
             }
         }
     }
