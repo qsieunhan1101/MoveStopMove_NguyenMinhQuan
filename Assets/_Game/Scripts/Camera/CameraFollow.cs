@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using UnityEngine;
 
 public class CameraFollow : Singleton<CameraFollow>
@@ -5,12 +6,22 @@ public class CameraFollow : Singleton<CameraFollow>
     [SerializeField] private Vector3 offset;
     [SerializeField] public GameObject target;
     [SerializeField] private float smoothTime;
+    private float defaultSmoothTime = 0;
     private Vector3 current = Vector3.zero;
 
+    private bool isMoveCam = false;
+    private Transform tf;
 
-    private void Start()
+    public Transform Tf
     {
-        //SetUpCamera(10,5);
+        get
+        {
+            if (tf == null)
+            {
+                tf = transform;
+            }
+            return tf;
+        }
     }
 
     // Update is called once per frame
@@ -19,18 +30,18 @@ public class CameraFollow : Singleton<CameraFollow>
         if (target != null)
         {
             Vector3 targetPosition = target.transform.position + offset;
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref current, smoothTime);
-
-            transform.LookAt(target.transform);
+            Tf.position = Vector3.SmoothDamp(transform.position, targetPosition, ref current, smoothTime);
+            Tf.LookAt(target.transform);
 
         }
-    }
-    private void OnEnable()
-    {
-    }
-    private void OnDisable()
-    {
-
+        if (Vector3.Distance(Tf.position, offset) < 1.0f)
+        {
+            isMoveCam = false;
+            if (isMoveCam == false)
+            {
+                smoothTime = defaultSmoothTime;
+            }
+        }
     }
 
     public void SetUpCamera(float distanceFormTager, float heightAboveTager)
@@ -40,8 +51,18 @@ public class CameraFollow : Singleton<CameraFollow>
 
             Vector3 newPosition = target.transform.position - target.transform.forward * distanceFormTager;
             newPosition.y = target.transform.position.y + heightAboveTager;
-            transform.position = newPosition;
-            offset = transform.position - target.transform.position;
+            Tf.position = newPosition;
+            offset = Tf.position - target.transform.position;
+        }
+    }
+
+    public void MoveCamera(Vector3 newPosition, float smooth)
+    {
+        isMoveCam = true;
+        if (target != null)
+        {
+            offset = newPosition;
+            smoothTime = smooth;
         }
     }
 }

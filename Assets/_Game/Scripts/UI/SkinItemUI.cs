@@ -79,16 +79,25 @@ public class SkinItemUI : MonoBehaviour
     private void OnClickBuy()
     {
         GetDictionaryEquipmentDataByID();
-        itemDictionaryData[itemEquippedName] = 1;
-        PlayerDataManager.Instance.playerEquipmentData.UpdateDictionaryWapper(idPlayerEquipmentLocation).FromDictionary(itemDictionaryData);
-        PlayerDataManager.Instance.UpdatePlayerEquipmentData();
-        UIUpdate();
         //
 
-        PlayerWeaponData p = PlayerDataManager.Instance.playerWeaponData;
-        p.golds = p.golds - itemEquipmentData.equipmentPrice;
-        PlayerDataManager.Instance.UpdateDataPlayer();
 
+        if (PlayerDataManager.Instance.playerWeaponData.golds < itemEquipmentData.equipmentPrice)
+        {
+            Debug.Log("khong du tien");
+        }
+        else
+        {
+            itemDictionaryData[itemEquippedName] = 1;
+            PlayerDataManager.Instance.playerEquipmentData.UpdateDictionaryWapper(idPlayerEquipmentLocation).FromDictionary(itemDictionaryData);
+            PlayerDataManager.Instance.UpdatePlayerEquipmentData();
+            PlayerWeaponData p = PlayerDataManager.Instance.playerWeaponData;
+            p.golds = p.golds - itemEquipmentData.equipmentPrice;
+            PlayerDataManager.Instance.UpdateDataPlayer();
+
+        }
+
+        UIUpdate();
         buttonBuyEvent?.Invoke();
     }
 

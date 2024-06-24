@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 
 public class JsonEquipmentHandler : MonoBehaviour
@@ -19,14 +18,22 @@ public class JsonEquipmentHandler : MonoBehaviour
     public void SaveDataEquipment(PlayerEquipmentData playerEquipment)
     {
         string json = JsonUtility.ToJson(playerEquipment, true);
-        File.WriteAllText(filePath, json);
+        //File.WriteAllText(filePath, json);
+        PlayerPrefs.SetString(Constant.PlayerPref_Key_Equipment, json);
+        PlayerPrefs.Save();
     }
     public PlayerEquipmentData LoadDataEquipment()
     {
-        string json = File.ReadAllText(filePath);
-        PlayerEquipmentData playerEquipmentData = JsonUtility.FromJson<PlayerEquipmentData>(json);
+        //string json = File.ReadAllText(filePath);
 
-        return playerEquipmentData;
+        if (PlayerPrefs.HasKey(Constant.PlayerPref_Key_Equipment))
+        {
+            string json = PlayerPrefs.GetString(Constant.PlayerPref_Key_Equipment);
+            PlayerEquipmentData playerEquipmentData = JsonUtility.FromJson<PlayerEquipmentData>(json);
+            return playerEquipmentData; 
+        }
+
+        return new PlayerEquipmentData();
     }
 
 }
@@ -68,7 +75,6 @@ public class PlayerEquipmentData
     }
 }
 
-
 [System.Serializable]
 public class DictionaryWapper<TKey, TValue>
 {
@@ -80,7 +86,7 @@ public class DictionaryWapper<TKey, TValue>
         keys.Add(key);
         values.Add(value);
     }
-    public void UpdateElement(TKey key ,TValue value)
+    public void UpdateElement(TKey key, TValue value)
     {
         int index = keys.IndexOf(key);
         if (index >= 0)
@@ -89,7 +95,7 @@ public class DictionaryWapper<TKey, TValue>
         }
         else
         {
-           AddElement(key, value);
+            AddElement(key, value);
         }
     }
 

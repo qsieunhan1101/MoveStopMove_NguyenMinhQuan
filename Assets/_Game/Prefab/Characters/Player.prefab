@@ -296,8 +296,7 @@ MonoBehaviour:
   anim: {fileID: 8008087852271613822}
   currentAnimName: 
   bodyTransform: {fileID: 119471527859165700}
-  characterTextName: {fileID: 0}
-  characterTextScore: {fileID: 0}
+  characterScore: 0
   bulletBasePrefab: {fileID: 1562520743842706727, guid: aa3749c345637394b8df669e7ba5fb51, type: 3}
   idListEquipment: 0
   equipmentName: 

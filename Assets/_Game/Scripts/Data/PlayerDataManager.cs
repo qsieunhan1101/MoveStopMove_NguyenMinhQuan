@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerDataManager : Singleton<PlayerDataManager>
 {
-    private const string FirstRunKey = "IsFirstRun";
 
     [SerializeField] private JsonWeaponHandler jsonHandler;
     [SerializeField] private JsonEquipmentHandler jsonEquipmentHandler;
@@ -13,7 +12,7 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
     public PlayerWeaponData playerWeaponData = new PlayerWeaponData((new Dictionary<WeaponType, int>(), new int()));
     public PlayerEquipmentData playerEquipmentData = new PlayerEquipmentData();
 
-    
+    public int defaultGold;
 
     private void Start()
     {
@@ -67,8 +66,7 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
 
     private bool IsFirstRun()
     {
-
-        return !PlayerPrefs.HasKey(FirstRunKey);
+        return !PlayerPrefs.HasKey(Constant.PlayerPref_Key_FirstRun);
     }
 
     private void FirstGameRunData()
@@ -86,7 +84,7 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
 
             }
         }
-        jsonHandler.SaveDataToJson(playerWeaponData.weaponPurchaseState, 10000);
+        jsonHandler.SaveDataToJson(playerWeaponData.weaponPurchaseState, defaultGold);
 
 
         //khoi tao gia tri equipment Hat lan dau tien chay
@@ -116,7 +114,7 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
         jsonEquipmentHandler.SaveDataEquipment(playerEquipmentData);
 
         //luu trang thai lan dau chay game
-        PlayerPrefs.SetInt(FirstRunKey, 0);
+        PlayerPrefs.SetInt(Constant.PlayerPref_Key_FirstRun, 0);
         PlayerPrefs.Save();
     }
     /////////////
@@ -134,7 +132,8 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
     public WeaponType GetWeaponState()
     {
         PlayerWeaponData p = new PlayerWeaponData(jsonHandler.LoadDataFromJson());
-        for (int i = 0; i < p.weaponPurchaseState.Count - 1; i++)
+
+        for (int i = 0; i < p.weaponPurchaseState.Count; i++)
         {
             if (p.weaponPurchaseState[(WeaponType)i] == 2)
             {

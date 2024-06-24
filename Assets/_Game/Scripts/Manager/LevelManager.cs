@@ -62,10 +62,10 @@ public class LevelManager : Singleton<LevelManager>
         DestroyLevel();
         GameObject lvParent = new GameObject("Level_Parent");
         this.mapLevelParent = lvParent.transform;
-
         currentMapLevel = Instantiate(mapLevelPrefabs[levelIndex], this.mapLevelParent);
-        GameObject player = Instantiate(playerPrefab, this.mapLevelParent);
 
+
+        GameObject player = Instantiate(playerPrefab, this.mapLevelParent);
         CameraFollow mainCam = CameraFollow.Instance;
         mainCam.target = player;
         mainCam.SetUpCamera(10,5);
@@ -79,10 +79,15 @@ public class LevelManager : Singleton<LevelManager>
     }
     public int GetLevel()
     {
-        int a;
+        int level;
         PlayerEquipmentData p = PlayerDataManager.Instance.LoadPlayerEquipmentData() ;
-        a = p.level;
-        return a ;
+        level = p.level;
+
+        if (p==null)
+        {
+            level = 0;
+        }
+        return level ;
     }
 
     public void ReLoadLevel()

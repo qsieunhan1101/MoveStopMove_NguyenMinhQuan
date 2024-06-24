@@ -18,7 +18,7 @@ public class CanvasMenu : UICanvas
     private void OnClickPlay()
     {
         GameManager.Instance.ChangeState(GameState.Gameplay);
-        CameraFollow.Instance.SetUpCamera(20,12);
+        CameraFollow.Instance.MoveCamera(new Vector3(0,10,-20) , 0.2f);
     }
     private void OnClickWeapon()
     {

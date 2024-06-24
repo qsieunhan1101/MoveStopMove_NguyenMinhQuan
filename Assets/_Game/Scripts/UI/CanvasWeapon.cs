@@ -128,7 +128,7 @@ public class CanvasWeapon : UICanvas
         PlayerWeaponData p = PlayerDataManager.Instance.playerWeaponData;
         p.weaponPurchaseState[this.weaponType] = 2;
 
-        for (int i=0; i< p.weaponPurchaseState.Count-1;i++)
+        for (int i=0; i< p.weaponPurchaseState.Count;i++)
         {
             if (p.weaponPurchaseState[(WeaponType)i] == 2 && p.weaponPurchaseState.Keys.ElementAt(i) != this.weaponType)
             {

@@ -18,14 +18,18 @@ public class JsonWeaponHandler : MonoBehaviour
     public void SaveDataToJson(Dictionary<WeaponType, int> dic, int gol)
     {
         string json = JsonUtility.ToJson(new SerializableDictionary(dic, gol), true);
-        File.WriteAllText(filePath, json);
+        //File.WriteAllText(filePath, json);
+        PlayerPrefs.SetString(Constant.PlayerPref_Key_Weapon, json);
+        PlayerPrefs.Save();
+
     }
 
     public (Dictionary<WeaponType, int>, int) LoadDataFromJson()
     {
-        if (File.Exists(filePath))
+        if (PlayerPrefs.HasKey(Constant.PlayerPref_Key_Weapon))
         {
-            string json = File.ReadAllText(filePath);
+            //string json = File.ReadAllText(filePath);
+            string json = PlayerPrefs.GetString(Constant.PlayerPref_Key_Weapon);
             SerializableDictionary serializableDictionary = JsonUtility.FromJson<SerializableDictionary>(json);
             return (serializableDictionary.ToDictionary(), serializableDictionary.golds);
         }

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class Character : GameUnit
@@ -15,7 +14,7 @@ public class Character : GameUnit
 
 
     //Weapon
-    [Header ("Weapon")]
+    [Header("Weapon")]
     [SerializeField] protected Transform bulletPoint;
     [SerializeField] protected Transform bulletPointDir;
     [SerializeField] protected float rangeAttack;
@@ -24,13 +23,13 @@ public class Character : GameUnit
     public float fireRate = 1f;
     public float nextTimeToFire = 0f;
 
-    [Header ("Weapon_Skin")]
+    [Header("Weapon_Skin")]
     [SerializeField] protected Transform weaponHand;
     [SerializeField] protected GameObject weaponHandPrefab;
     [SerializeField] public WeaponType weaponType;
 
 
-    [Header ("Body_Anim")]
+    [Header("Body_Anim")]
     [SerializeField] protected Animator anim;
     [SerializeField] protected string currentAnimName;
     protected Vector3 originalScale;
@@ -38,9 +37,9 @@ public class Character : GameUnit
     public Transform bodyTransform;
 
     //Text Name, Score
-    [Header ("Character_UI")]
-    
-    [SerializeField] protected int characterScore = 0; 
+    [Header("Character_UI")]
+
+    [SerializeField] protected int characterScore = 0;
     protected string characterName;
     public int CharacterScore
     {
@@ -52,7 +51,7 @@ public class Character : GameUnit
     }
 
     //pool
-    [Header ("Pool")]
+    [Header("Pool")]
     [SerializeField] private BulletBase bulletBasePrefab;
 
 
@@ -79,7 +78,7 @@ public class Character : GameUnit
 
     public Material CharacterMaterial
     {
-        get {return setMeshRenderer.material; }
+        get { return setMeshRenderer.material; }
     }
 
     private bool isMaxSize = false;
@@ -114,7 +113,7 @@ public class Character : GameUnit
         bb.SetCharacterOwner(this);
 
         Vector3 dir = (bulletPointDir.position - this.transform.position).normalized;
-        
+
         bb.dir = dir;
         int sign = 1;
         if (bulletPointDir.position.x < this.transform.position.x)
@@ -143,7 +142,7 @@ public class Character : GameUnit
     {
         if (GameManager.Instance.CurrentState == GameState.Gameplay)
         {
-            int numberHitEnemyCatch = Physics.OverlapSphereNonAlloc(this.transform.position, rangeAttack, enemyColliders, characterLayerMask);
+            int numberHitEnemyCatch = Physics.OverlapSphereNonAlloc(Tf.position, rangeAttack, enemyColliders, characterLayerMask);
             float closestDistance = Mathf.Infinity;
 
             Transform lastTarget;
@@ -151,8 +150,8 @@ public class Character : GameUnit
             for (int i = 0; i < numberHitEnemyCatch; i++)
             {
 
-                float distance = Vector3.Distance(enemyColliders[i].transform.position, this.transform.position);
-                if (distance < closestDistance && enemyColliders[i].transform != this.transform)
+                float distance = Vector3.Distance(enemyColliders[i].transform.position, Tf.position);
+                if (distance < closestDistance && enemyColliders[i].transform != Tf)
                 {
                     if (targetAttack != null && this is Player)
                     {
@@ -160,7 +159,7 @@ public class Character : GameUnit
                         lastTarget.GetComponent<Enemy>().spriteRenderer.enabled = false;
 
                     }
-                    targetAttack = enemyColliders[i].transform;
+                    targetAttack = Cache.GetCharacter(enemyColliders[i]).transform;
                     closestDistance = distance;
 
                 }
@@ -171,7 +170,7 @@ public class Character : GameUnit
             }
         }
 
-        
+
 
     }
 
@@ -240,6 +239,8 @@ public class Character : GameUnit
         {
 
             isMaxSize = false;
+            transform.localScale = originalScale;
+            rangeAttack = rangeAttackDefault;
         }
     }
 
